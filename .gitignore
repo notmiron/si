@@ -1,0 +1,17 @@
+# Supabase temp files
+supabase/.temp/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# OMC state
+.omc/
+
+# OS files
+.DS_Store
+Thumbs.db

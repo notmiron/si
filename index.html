@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://swyoegecrtctnevuqarm.supabase.co https://cdn.jsdelivr.net; frame-src https://www.google.com;" />
+  <title>Control Garage – Officina Meccatronica a Forlì</title>
+  <meta name="description" content="Control Garage – Officina Meccatronica a Forlì. Nata dalla pura passione per le auto, i motori e le elaborazioni. Diagnostica, riparazioni e tuning. Via Ettore Benini 3." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://controlgarage.eu/" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="business.business" />
+  <meta property="og:title" content="Control Garage – Officina Meccatronica a Forlì" />
+  <meta property="og:description" content="Nata dalla pura passione per le auto, i motori e le elaborazioni. Diagnostica, riparazioni e tuning a Forlì." />
+  <meta property="og:url" content="https://controlgarage.eu/" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:image" content="https://controlgarage.eu/hero-bg.png" />
+  <meta property="og:image:width" content="1632" />
+  <meta property="og:image:height" content="963" />
+  <meta property="og:site_name" content="Control Garage" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Control Garage – Officina Meccatronica a Forlì" />
+  <meta name="twitter:description" content="Diagnostica, riparazioni, elettronica, meccatronica, tuning e elaborazioni. Via Ettore Benini 3, Forlì." />
+  <meta name="twitter:image" content="https://controlgarage.eu/hero-bg.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="48x32x16" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Google Fonts – caricati via JS dopo consenso cookie -->
+
+  <!-- Preconnect to external origins -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://swyoegecrtctnevuqarm.supabase.co" />
+
+  <!-- Preload hero image -->
+  <link rel="preload" as="image" href="./hero-bg.webp" type="image/webp" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./style.min.css" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="./config.js" defer></script>
+
+  <!-- JSON-LD Structured Data for Google Maps / Local Business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    "name": "Control Garage",
+    "description": "Officina Meccatronica a Forlì. Diagnostica computerizzata, riparazioni, elettronica, meccatronica, tuning e elaborazioni.",
+    "url": "https://controlgarage.eu",
+    "telephone": "+393889229893",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via Ettore Benini, 3",
+      "addressLocality": "Forlì",
+      "addressRegion": "FC",
+      "postalCode": "47121",
+      "addressCountry": "IT"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 44.2227,
+      "longitude": 12.0568
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "12:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "14:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "08:00",
+        "closes": "12:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/control_garage/",
+      "https://www.facebook.com/p/Control-Garage-100046434978363/"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "3"
+    },
+    "hasMap": "https://maps.app.goo.gl/kxyLR6czNGk7Mdpu7"
+  }
+  </script>
+
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navigazione principale">
+    <a href="#intro" class="nav-logo" aria-label="Control Garage - Home">
+      <!-- Gear icon -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px">
+        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+      </svg>
+      CONTROL GARAGE
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Apri menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#about">Chi Siamo</a></li>
+      <li><a href="#services">Servizi</a></li>
+      <li><a href="#reviews">Recensioni</a></li>
+      <li><a href="#info">Dove Siamo</a></li>
+      <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== HERO INTRO ===================== -->
+  <section class="intro" id="intro" aria-label="Intro">
+    <!-- The hero background (Ferrari image) -->
+    <div class="intro-bg" aria-hidden="true">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content" id="heroContent">
+      <h1 class="hero-title" aria-label="Control Garage">
+        <span class="hero-word hero-word--bold">CONTROL</span>
+        <span class="hero-word hero-word--script">Garage</span>
+      </h1>
+      <div class="hero-cta-bar">
+        <a href="https://maps.app.goo.gl/kxyLR6czNGk7Mdpu7" target="_blank" rel="noopener noreferrer" class="hero-cta-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Via Ettore Benini, 3 – Forlì
+        </a>
+        <span class="hero-cta-divider"></span>
+        <a href="tel:+393889229893" class="hero-cta-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+          </svg>
+          388 922 9893
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="about-section" id="about" aria-labelledby="about-heading">
+
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal-up">
+          <p class="section-label">Chi Siamo</p>
+          <h2 class="section-heading" id="about-heading"><span class="heading-bold">CHI</span> <span class="heading-script">Siamo</span></h2>
+          <p class="text-body about-description">
+            Siamo a Forlì, in Via Ettore Benini. Qui si lavora sulle auto da sempre — diagnostica, meccanica, elettronica, elaborazioni. Ci piace fare le cose per bene e dire le cose come stanno.
+          </p>
+          <p class="text-body about-description">
+            Se hai un problema, lo troviamo. Se vuoi migliorare la tua auto, ne parliamo. <strong>Niente giri di parole, niente sorprese in fattura.</strong>
+          </p>
+          <div class="about-badges">
+            <span class="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true">
+                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+              </svg>
+              Meccatronica
+            </span>
+            <span class="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+              </svg>
+              Diagnostica
+            </span>
+            <span class="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+              Tuning & Elaborazioni
+            </span>
+          </div>
+        </div>
+
+        <div class="about-visual reveal-up">
+          <div class="about-stats">
+            <div class="about-stat">
+              <span class="about-stat-number">10+</span>
+              <span class="about-stat-label">Anni di Esperienza</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat-number">2000+</span>
+              <span class="about-stat-label">Auto Riparate</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat-number">100%</span>
+              <span class="about-stat-label">Trasparenza</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section class="menu-section" id="services" aria-labelledby="services-heading">
+
+
+    <div class="container">
+      <div class="section-header reveal-up">
+
+        <p class="section-label">I Servizi</p>
+        <h2 class="section-heading" id="services-heading"><span class="heading-bold">COSA</span> <span class="heading-script">Facciamo</span></h2>
+        <p class="section-intro text-body">Dalla manutenzione ordinaria alle elaborazioni. Ecco di cosa ci occupiamo.</p>
+      </div>
+
+      <div class="menu-grid">
+        <!-- Card 1 -->
+        <article class="menu-card reveal-card" aria-label="Diagnostica Computerizzata">
+          <div class="menu-card-inner">
+            <div class="menu-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                <path d="M7 10l3 3 7-7" stroke="var(--accent)" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="menu-card-title">Diagnostica Computerizzata</h3>
+            <p class="menu-card-desc text-body">Lettura centraline, sensori, codici errore. Troviamo il problema prima di smontare qualsiasi cosa.</p>
+            <span class="menu-card-tag">Tecnologia</span>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="menu-card reveal-card" aria-label="Manutenzione e Riparazioni">
+          <div class="menu-card-inner">
+            <div class="menu-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </div>
+            <h3 class="menu-card-title">Manutenzione & Riparazioni</h3>
+            <p class="menu-card-desc text-body">Tagliandi, freni, sospensioni, distribuzione, cambio olio. Ricambi di qualità, lavoro fatto bene.</p>
+            <span class="menu-card-tag">Officina</span>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="menu-card reveal-card" aria-label="Tuning & Elaborazioni">
+          <div class="menu-card-inner">
+            <div class="menu-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <h3 class="menu-card-title">Tuning & Elaborazioni</h3>
+            <p class="menu-card-desc text-body">Rimappature, scarichi sportivi, assetti, upgrade. Se vuoi tirare fuori di più dalla tua auto, parliamone.</p>
+            <span class="menu-card-tag">Performance</span>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="menu-card reveal-card" aria-label="Elettronica & Meccatronica">
+          <div class="menu-card-inner">
+            <div class="menu-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+              </svg>
+            </div>
+            <h3 class="menu-card-title">Elettronica & Meccatronica</h3>
+            <p class="menu-card-desc text-body">Centraline, codifiche, sistemi elettronici. I problemi che gli altri non trovano, noi li risolviamo.</p>
+            <span class="menu-card-tag">Specializzazione</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MARQUEE ===================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">DIAGNOSTICA</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">MECCATRONICA</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">TUNING</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">ELABORAZIONI</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">BMW SPECIALIST</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">PERFORMANCE</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">DIAGNOSTICA</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">MECCATRONICA</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">TUNING</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">ELABORAZIONI</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">BMW SPECIALIST</span>
+      <span class="marquee-separator"></span>
+      <span class="marquee-item">PERFORMANCE</span>
+      <span class="marquee-separator"></span>
+    </div>
+  </div>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section class="reviews-section" id="reviews" aria-labelledby="reviews-heading">
+
+    <div class="container">
+      <div class="section-header reveal-up">
+
+        <p class="section-label">Cosa Dicono di Noi</p>
+        <h2 class="section-heading" id="reviews-heading"><span class="heading-bold">LE</span> <span class="heading-script">Recensioni</span></h2>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <article class="review-card reveal-review" aria-label="Recensione">
+          <div class="review-stars" aria-label="5 stelle su 5">
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="review-text">"Professionalità e competenza al top. Matteo è sempre disponibile a spiegare ogni intervento. La mia BMW non è mai stata così bene!"</p>
+          <p class="review-author">Marco R.</p>
+          <p class="review-date">Cliente verificato</p>
+        </article>
+
+        <!-- Review 2 -->
+        <article class="review-card reveal-review" aria-label="Recensione">
+          <div class="review-stars" aria-label="5 stelle su 5">
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="review-text">"Qualità del lavoro eccellente e prezzi onesti. Finalmente un'officina di cui fidarsi al 100%. Trasparenza totale su ogni intervento."</p>
+          <p class="review-author">Alessia T.</p>
+          <p class="review-date">Cliente verificato</p>
+        </article>
+
+        <!-- Review 3 -->
+        <article class="review-card reveal-review" aria-label="Recensione">
+          <div class="review-stars" aria-label="5 stelle su 5">
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="review-text">"Ho portato la mia auto per un problema elettronico che nessuno riusciva a risolvere. Qui l'hanno trovato e risolto in mezza giornata. Officina al top!"</p>
+          <p class="review-author">Davide L.</p>
+          <p class="review-date">Cliente verificato</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INFO & HOURS ===================== -->
+  <section class="info-section" id="info" aria-labelledby="info-heading">
+    <div class="container">
+      <div class="section-header reveal-up">
+
+        <p class="section-label">Vieni a Trovarci</p>
+        <h2 class="section-heading" id="info-heading"><span class="heading-bold">DOVE</span> <span class="heading-script">Siamo</span></h2>
+      </div>
+
+      <div class="info-grid">
+        <!-- Address block -->
+        <div class="info-block reveal-up">
+          <h3 class="info-block-title">Indirizzo</h3>
+          <address class="info-address">
+            <p>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:8px">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              Via Ettore Benini, 3<br />47121 Forlì FC, Italia
+            </p>
+            <p style="margin-top:1rem">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:8px">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+              </svg>
+              <a href="tel:+393889229893">388 922 9893</a>
+            </p>
+          </address>
+
+          <a href="https://maps.app.goo.gl/kxyLR6czNGk7Mdpu7" target="_blank" rel="noopener noreferrer" class="btn btn-maps info-map-btn" style="margin-top:1.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            Apri su Google Maps
+          </a>
+        </div>
+
+        <!-- Hours block -->
+        <div class="info-block reveal-up">
+          <h3 class="info-block-title">Orari di Apertura</h3>
+          <table class="hours-table" aria-label="Orari di apertura">
+            <tr>
+              <td>Lunedi - Venerdi</td>
+              <td>08:00 - 12:00 / 14:00 - 18:00</td>
+            </tr>
+            <tr>
+              <td>Sabato</td>
+              <td>08:00 - 12:00</td>
+            </tr>
+            <tr>
+              <td>Domenica</td>
+              <td class="closed">Chiuso</td>
+            </tr>
+          </table>
+          <a href="tel:+393889229893" class="btn btn-phone info-call-btn" style="margin-top:1.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+            </svg>
+            Chiama per Info
+          </a>
+        </div>
+      </div>
+
+      <!-- Google Maps Embed – caricato dopo consenso cookie -->
+      <div class="map-embed reveal-up" id="mapEmbed" style="margin-top:3rem"
+           data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2854.5!2d12.0568!3d44.2227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132b517a1a7fffff%3A0xffffffffffff!2sVia+Ettore+Benini%2C+3%2C+47121+Forl%C3%AC+FC!5e0!3m2!1sit!2sit!4v1700000000000">
+        <div class="cookie-map-placeholder" id="mapPlaceholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <p class="map-placeholder-title">Mappa non disponibile</p>
+          <p class="map-placeholder-text">Per visualizzare la mappa di Google Maps, accetta i cookie funzionali.</p>
+          <div class="map-placeholder-actions">
+            <button type="button" class="map-placeholder-btn" onclick="window.CookieConsent.show()">Gestisci Cookie</button>
+            <a href="https://maps.app.goo.gl/kxyLR6czNGk7Mdpu7" target="_blank" rel="noopener noreferrer" class="map-placeholder-link">Apri su Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq-section" id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header reveal-up">
+
+        <p class="section-label">Domande Frequenti</p>
+        <h2 class="section-heading" id="faq-heading"><span class="heading-bold">LE TUE</span> <span class="heading-script">Domande</span></h2>
+      </div>
+
+      <div class="faq-list reveal-up">
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Serve prendere appuntamento?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Consigliamo sempre di prenotare per garantirti il miglior servizio possibile. Puoi farlo tramite il modulo di prenotazione online qui sul sito o telefonando direttamente. Per urgenze, vieni pure: cercheremo di assisterti il prima possibile.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Lavorate solo su BMW?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>No, lavoriamo su tutte le marche e modelli. Abbiamo però una specializzazione particolare su BMW, con esperienza consolidata su tutta la gamma — dalla Serie 1 alla Serie 7, X e M.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Quanto costa una rimappatura centralina?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Il costo varia in base al modello, al tipo di centralina e all'intervento richiesto. Richiedi un preventivo gratuito prenotando online o telefonando — ti rispondiamo in giornata con un prezzo chiaro e trasparente.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Offrite garanzia sui lavori?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Sì, tutti i nostri interventi sono coperti da garanzia. Utilizziamo ricambi di qualità originale o equivalente e garantiamo la manodopera. I dettagli specifici vengono comunicati al momento del preventivo.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Fate anche preparazione per la revisione?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Assolutamente sì. Eseguiamo un controllo completo pre-revisione per assicurarci che il veicolo superi senza problemi. Se troviamo qualcosa da sistemare, ti avvisiamo prima di procedere — nessuna sorpresa.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Posso portare i miei ricambi?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Sì, accettiamo ricambi portati dal cliente. Tieni presente che in questo caso la garanzia copre solo la manodopera e non il pezzo fornito. Ti consigliamo sempre di consultarci prima dell'acquisto per evitare incompatibilità.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRENOTA ===================== -->
+  <section class="prenota-section" id="prenota" aria-labelledby="prenota-heading">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <p class="section-label">Prenota Online</p>
+        <h2 class="section-heading" id="prenota-heading"><span class="heading-bold">PRENOTA</span> <span class="heading-script">Appuntamento</span></h2>
+        <p class="section-intro text-body">Scegli il servizio, il giorno e la fascia oraria. Ti confermeremo via email.</p>
+      </div>
+
+      <div class="prenota-wrapper reveal-up">
+        <div class="booking-form-container" id="bookingFormContainer">
+          <!-- Step indicators -->
+          <div class="booking-steps">
+            <div class="booking-step active" data-step="1"><span class="step-num">1</span><span class="step-label">Servizio</span></div>
+            <div class="booking-step-line"></div>
+            <div class="booking-step" data-step="2"><span class="step-num">2</span><span class="step-label">Data</span></div>
+            <div class="booking-step-line"></div>
+            <div class="booking-step" data-step="3"><span class="step-num">3</span><span class="step-label">Dati</span></div>
+          </div>
+
+          <form id="bookingForm" novalidate>
+            <!-- Step 1: Service -->
+            <div class="booking-panel active" id="bookingStep1">
+              <h3 class="booking-panel-title">Che servizio ti serve?</h3>
+              <div class="service-options" id="serviceOptions">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Step 2: Date & Time -->
+            <div class="booking-panel" id="bookingStep2">
+              <h3 class="booking-panel-title">Quando preferisci?</h3>
+              <div class="booking-calendar" id="bookingCalendar">
+                <div class="booking-cal-header">
+                  <button type="button" class="booking-cal-nav" id="bookCalPrev">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                  </button>
+                  <span class="booking-cal-title" id="bookCalTitle"></span>
+                  <button type="button" class="booking-cal-nav" id="bookCalNext">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+                <div class="booking-cal-grid" id="bookCalGrid"></div>
+              </div>
+              <div class="slot-selector" id="slotSelector" style="display:none">
+                <h4 class="slot-section-title" id="slotMattinaTitle">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                  Mattina
+                </h4>
+                <div class="slot-grid" id="slotGridMattina"></div>
+                <h4 class="slot-section-title" id="slotPomeriggioTitle">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                  Pomeriggio
+                </h4>
+                <div class="slot-grid" id="slotGridPomeriggio"></div>
+              </div>
+            </div>
+
+            <!-- Step 3: Details -->
+            <div class="booking-panel" id="bookingStep3">
+              <h3 class="booking-panel-title">I tuoi dati</h3>
+              <div class="booking-fields">
+                <div class="booking-field">
+                  <label for="bookNome">Nome e cognome *</label>
+                  <input type="text" id="bookNome" placeholder="Mario Rossi" required />
+                </div>
+                <div class="booking-field">
+                  <label for="bookEmail">Email *</label>
+                  <input type="email" id="bookEmail" placeholder="mario@email.com" required />
+                </div>
+                <div class="booking-field">
+                  <label for="bookTelefono">Telefono</label>
+                  <input type="tel" id="bookTelefono" placeholder="388 000 0000" pattern="[\d\s\+\-]+" inputmode="tel" />
+                </div>
+                <div class="booking-field">
+                  <label for="bookAuto">Modello auto *</label>
+                  <input type="text" id="bookAuto" placeholder="BMW 320d E90" required />
+                </div>
+                <div class="booking-field booking-field-full">
+                  <label for="bookNote">Note aggiuntive</label>
+                  <textarea id="bookNote" rows="3" placeholder="Descrivi il problema o cosa vorresti fare..."></textarea>
+                </div>
+                <div class="booking-field booking-field-full">
+                  <label class="booking-consent">
+                    <input type="checkbox" id="bookConsent" required />
+                    <span>Acconsento al trattamento dei miei dati personali ai sensi del <a href="/privacy-policy.html" target="_blank" rel="noopener">Regolamento UE 2016/679 (GDPR)</a> *</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="booking-nav">
+              <button type="button" class="booking-btn-back" id="bookBtnBack" style="display:none">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Indietro
+              </button>
+              <button type="button" class="booking-btn-next" id="bookBtnNext">
+                Avanti
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button type="submit" class="booking-btn-submit" id="bookBtnSubmit" style="display:none">
+                Conferma Prenotazione
+              </button>
+            </div>
+          </form>
+
+          <!-- Success state -->
+          <div class="booking-success" id="bookingSuccess" style="display:none">
+            <div class="booking-success-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3 class="booking-success-title">Prenotazione Inviata!</h3>
+            <p class="booking-success-text">La tua richiesta e' stata ricevuta. Ti contatteremo via email per confermare l'appuntamento.</p>
+            <button type="button" class="booking-btn-new" id="bookBtnNew">Nuova Prenotazione</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT CTA ===================== -->
+  <section class="contact-section" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-content reveal-up">
+        <p class="section-label">Prenota il Tuo Appuntamento</p>
+        <h2 class="section-heading" id="contact-heading"><span class="heading-bold">CONTATTACI</span> <span class="heading-script">Ora</span></h2>
+        <p class="contact-tagline">Prenota online, chiamaci o passa direttamente in officina.</p>
+
+        <div class="contact-cards">
+          <a href="tel:+393889229893" class="contact-card" aria-label="Chiama per prenotare">
+            <div class="contact-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+              </svg>
+            </div>
+            <span class="contact-card-title">Chiama Ora</span>
+            <span class="contact-card-detail">388 922 9893</span>
+          </a>
+
+          <a href="#prenota" class="contact-card" aria-label="Prenota online">
+            <div class="contact-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <span class="contact-card-title">Prenota Online</span>
+            <span class="contact-card-detail">Scegli giorno e orario</span>
+          </a>
+
+          <a href="https://maps.app.goo.gl/kxyLR6czNGk7Mdpu7" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="Indicazioni stradali">
+            <div class="contact-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <span class="contact-card-title">Vieni a Trovarci</span>
+            <span class="contact-card-detail">Via Ettore Benini, 3</span>
+          </a>
+        </div>
+
+        <!-- Social icons -->
+        <div class="social-links contact-socials">
+          <a href="https://www.instagram.com/control_garage/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/p/Control-Garage-100046434978363/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://controlgarage.eu" target="_blank" rel="noopener noreferrer" aria-label="Sito Web" class="social-web">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 2.05A9.95 9.95 0 0110 2.2c-.464.842-.857 1.776-1.169 2.8H6.39A10.03 10.03 0 0111.5 2.05zM5.6 6h2.768A20.5 20.5 0 008 9.5H2.2A9.94 9.94 0 015.6 6zM2.05 10.5H8c-.018 1.2.075 2.37.268 3.5H2.55a9.95 9.95 0 01-.5-3.5zM5.6 18H8.37c.312 1.024.705 1.958 1.169 2.8A10.03 10.03 0 015.6 18zm5.9 3.95c-1.058-.19-2.06-1.175-2.837-2.95H11.5v2.95zm0-3.95H8.4a18.5 18.5 0 01-.37-3.5h3.47V18zm0-4.5H8.08A18.5 18.5 0 018.4 10h3.1v3.5zm0-4.5H8.83c.33-1.19.795-2.25 1.375-3.1.26-.4.535-.74.813-1.02l.48-.43V9zm9.75 1.5H16c.018 1.2-.075 2.37-.268 3.5h5.718a9.95 9.95 0 00.5-3.5zM18.4 6a9.94 9.94 0 013.4 3.5H16a20.5 20.5 0 00-.368-3.5H18.4zM12.5 2.05V5.9l.48.43c.278.28.554.62.813 1.02.58.85 1.045 1.91 1.375 3.1H12.5V6h-.001V2.05zm0 7.45v3.5h3.47a18.5 18.5 0 00.37-3.5H12.5zm0 4.5v3.5h2.837c.777-1.775 1.779-2.76 2.837-2.95v-.55H12.5zm0 4.5v2.95c.178-.034.356-.077.535-.13a7.7 7.7 0 001.302-.67c.58-.85 1.045-1.91 1.375-3.1H12.5v.95zm2.04 2.3c.464-.842.857-1.776 1.169-2.8h2.441a10.03 10.03 0 01-3.61 2.8zm3.86-3.8h-2.768A20.5 20.5 0 0016 14.5h5.8a9.94 9.94 0 01-3.4 3.5z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" role="contentinfo" aria-label="Piè di pagina">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Column 1: Brand -->
+        <div class="footer-col">
+          <div class="footer-brand">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px">
+              <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+            </svg>
+            <strong>CONTROL GARAGE</strong>
+          </div>
+          <p class="footer-tagline">Officina Meccatronica – Forlì</p>
+        </div>
+
+        <!-- Column 2: Quick links -->
+        <div class="footer-col">
+          <h4 class="footer-col-heading">Link Rapidi</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="#about">Chi Siamo</a></li>
+            <li><a href="#services">Servizi</a></li>
+            <li><a href="#reviews">Recensioni</a></li>
+            <li><a href="#info">Dove Siamo</a></li>
+            <li><a href="#" onclick="window.CookieConsent.show();return false;">Gestisci Cookie</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Contact + socials -->
+        <div class="footer-col">
+          <h4 class="footer-col-heading">Contatti</h4>
+          <div class="footer-contact">
+            <p>Via Ettore Benini, 3<br />47121 Forlì FC, Italia</p>
+            <p><a href="tel:+393889229893">388 922 9893</a></p>
+            <p><a href="#prenota">Prenota Online</a></p>
+          </div>
+          <div class="social-links footer-socials">
+            <a href="https://www.instagram.com/control_garage/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/p/Control-Garage-100046434978363/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://controlgarage.eu" target="_blank" rel="noopener noreferrer" aria-label="Sito Web" class="social-web">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm1 21.94V18h-2v3.94A9.96 9.96 0 012.06 13H6v-2H2.06A9.96 9.96 0 0111 2.06V6h2V2.06A9.96 9.96 0 0121.94 11H18v2h3.94A9.96 9.96 0 0113 21.94z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Control Garage. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Booking CTA (mobile) -->
+  <a href="#prenota" class="floating-cta floating-cta--booking" aria-label="Prenota un appuntamento">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+  </a>
+
+  <!-- Film Grain Overlay -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- ===================== COOKIE BANNER ===================== -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consenso cookie" aria-hidden="true">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/><circle cx="8" cy="9" r="1.5" fill="var(--accent)"/><circle cx="15" cy="7" r="1" fill="var(--accent)"/><circle cx="10" cy="14" r="1.2" fill="var(--accent)"/><circle cx="16" cy="13" r="1" fill="var(--accent)"/><circle cx="13" cy="17" r="0.8" fill="var(--accent)"/>
+        </svg>
+        <h3 class="cookie-banner-title">Questo sito utilizza i cookie</h3>
+      </div>
+      <p class="cookie-banner-text">Utilizziamo cookie di terze parti (Google Fonts e Google Maps) per migliorare la tua esperienza. Puoi scegliere quali accettare.</p>
+
+      <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn--accept" id="cookieAcceptAll">Accetta tutto</button>
+        <button type="button" class="cookie-btn cookie-btn--reject" id="cookieRejectAll">Rifiuta tutto</button>
+        <button type="button" class="cookie-btn cookie-btn--customize" id="cookieCustomize">Personalizza</button>
+      </div>
+
+      <div class="cookie-banner-details" id="cookieDetails" style="display:none">
+        <div class="cookie-category">
+          <div class="cookie-category-info">
+            <strong>Necessari</strong>
+            <span class="cookie-category-desc">Essenziali per il funzionamento del sito</span>
+          </div>
+          <label class="cookie-toggle cookie-toggle--disabled">
+            <input type="checkbox" checked disabled />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="cookie-category">
+          <div class="cookie-category-info">
+            <strong>Funzionali</strong>
+            <span class="cookie-category-desc">Google Fonts per la tipografia del sito</span>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookieToggleFonts" />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="cookie-category">
+          <div class="cookie-category-info">
+            <strong>Mappa</strong>
+            <span class="cookie-category-desc">Google Maps per mostrare la posizione dell'officina</span>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookieToggleMaps" />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+        </div>
+        <button type="button" class="cookie-btn cookie-btn--save" id="cookieSavePrefs">Salva preferenze</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.min.js"></script>
+</body>
+</html>

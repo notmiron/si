@@ -1,0 +1,16 @@
+{
+  "name": "Control Garage",
+  "short_name": "Control Garage",
+  "description": "Officina Meccatronica a Forli - Diagnostica, riparazioni, tuning e elaborazioni.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
