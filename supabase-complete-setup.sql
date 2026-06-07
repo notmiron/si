@@ -65,11 +65,11 @@ INSERT INTO impostazioni (id) VALUES (1);
 CREATE TABLE prenotazioni (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   servizio_id UUID REFERENCES servizi(id),
-  nome TEXT NOT NULL,
-  email TEXT NOT NULL,
-  telefono TEXT,
-  auto TEXT NOT NULL,
-  note TEXT,
+  nome TEXT NOT NULL CHECK (length(nome) <= 200),
+  email TEXT NOT NULL CHECK (length(email) <= 254),
+  telefono TEXT CHECK (length(telefono) <= 20),
+  auto TEXT NOT NULL CHECK (length(auto) <= 200),
+  note TEXT CHECK (length(note) <= 2000),
   data DATE NOT NULL,
   fascia_oraria TEXT NOT NULL CHECK (fascia_oraria IN ('mattina', 'pomeriggio')),
   ora TIME,
@@ -140,7 +140,30 @@ DECLARE
   max_slot INTEGER;
   current_count INTEGER;
   duplicate_count INTEGER;
+  is_sunday_open BOOLEAN;
+  is_saturday_open BOOLEAN;
 BEGIN
+  -- Blocca prenotazioni nel passato
+  IF NEW.data < CURRENT_DATE THEN
+    RAISE EXCEPTION 'Non e possibile prenotare per una data passata';
+  END IF;
+
+  -- Blocca domenica (se non aperta)
+  IF EXTRACT(DOW FROM NEW.data) = 0 THEN
+    SELECT domenica_aperto INTO is_sunday_open FROM impostazioni WHERE id = 1;
+    IF NOT COALESCE(is_sunday_open, FALSE) THEN
+      RAISE EXCEPTION 'L officina e chiusa la domenica';
+    END IF;
+  END IF;
+
+  -- Blocca sabato (se non aperto)
+  IF EXTRACT(DOW FROM NEW.data) = 6 THEN
+    SELECT sabato_aperto INTO is_saturday_open FROM impostazioni WHERE id = 1;
+    IF NOT COALESCE(is_saturday_open, TRUE) THEN
+      RAISE EXCEPTION 'L officina e chiusa il sabato';
+    END IF;
+  END IF;
+
   -- Blocca prenotazioni duplicate: stessa email + stesso giorno
   SELECT COUNT(*) INTO duplicate_count
   FROM prenotazioni
@@ -222,7 +245,11 @@ BEGIN
   END IF;
 
   RETURN QUERY
-  SELECT p.data AS giorno, p.fascia_oraria AS fascia, p.ora::TEXT AS slot_ora, COUNT(*) AS conteggio
+  SELECT
+    p.data AS giorno,
+    p.fascia_oraria AS fascia,
+    p.ora::TEXT AS slot_ora,
+    COUNT(*) AS conteggio
   FROM prenotazioni p
   WHERE p.data BETWEEN data_inizio AND data_fine
     AND p.stato IN ('in_attesa', 'confermata')
@@ -332,15 +359,15 @@ CREATE POLICY "Solo admin legge admin_users"
   USING (is_admin());
 
 -- SECURITY LOGS
-CREATE POLICY "Authenticated users can insert logs"
+CREATE POLICY "Solo admin inserisce logs"
   ON security_logs FOR INSERT
   TO authenticated
-  WITH CHECK (TRUE);
+  WITH CHECK (is_admin());
 
-CREATE POLICY "Authenticated users can read logs"
+CREATE POLICY "Solo admin legge logs"
   ON security_logs FOR SELECT
   TO authenticated
-  USING (TRUE);
+  USING (is_admin());
 
 -- =============================================
 -- GRANT RPC ACCESS

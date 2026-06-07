@@ -909,6 +909,7 @@
     var selectedDate = null;
     var selectedFascia = null;
     var selectedOra = null;
+    var isSubmitting = false;
     var calMonth = new Date().getMonth();
     var calYear = new Date().getFullYear();
     var services = [];
@@ -1065,6 +1066,7 @@
             var dt = this.getAttribute('data-date');
             selectedDate = dt;
             selectedFascia = null;
+            selectedOra = null;
             document.querySelectorAll('.booking-cal-day').forEach(function(el) { el.classList.remove('selected'); });
             this.classList.add('selected');
             showSlotSelector(dt);
@@ -1099,6 +1101,13 @@
       var isSaturday = dow === 5;
       var duration = settings ? (settings.durata_slot || 30) : 30;
 
+      // Check if this is today (to disable past time slots)
+      var now = new Date();
+      var todayStr = formatDateISO(now);
+      var isToday = dateStr === todayStr;
+      var currentHour = now.getHours();
+      var currentMin = now.getMinutes();
+
       // Parse times
       var mattStart = settings ? settings.orario_mattina_inizio.split(':') : ['08','00'];
       var mattEnd = settings ? settings.orario_mattina_fine.split(':') : ['12','00'];
@@ -1126,7 +1135,12 @@
         btn.setAttribute('data-time', time);
         btn.setAttribute('data-fascia', 'mattina');
 
-        if (bookedSlots[time] && bookedSlots[time] >= 1) {
+        var slotParts = time.split(':');
+        var slotH = parseInt(slotParts[0]);
+        var slotM = parseInt(slotParts[1]);
+        var isPastSlot = isToday && (slotH < currentHour || (slotH === currentHour && slotM <= currentMin));
+
+        if (isPastSlot || (bookedSlots[time] && bookedSlots[time] >= 1)) {
           btn.classList.add('disabled');
         } else {
           btn.addEventListener('click', function() { selectSlot(this); });
@@ -1155,7 +1169,12 @@
           btn.setAttribute('data-time', time);
           btn.setAttribute('data-fascia', 'pomeriggio');
 
-          if (bookedSlots[time] && bookedSlots[time] >= 1) {
+          var slotParts = time.split(':');
+          var slotH = parseInt(slotParts[0]);
+          var slotM = parseInt(slotParts[1]);
+          var isPastSlot = isToday && (slotH < currentHour || (slotH === currentHour && slotM <= currentMin));
+
+          if (isPastSlot || (bookedSlots[time] && bookedSlots[time] >= 1)) {
             btn.classList.add('disabled');
           } else {
             btn.addEventListener('click', function() { selectSlot(this); });
@@ -1174,13 +1193,18 @@
       selectedFascia = btn.getAttribute('data-fascia');
     }
 
-    // Calendar nav
+    // Calendar nav (bounded: current month to 3 months ahead)
     document.getElementById('bookCalPrev').addEventListener('click', function() {
+      var now = new Date();
+      if (calYear === now.getFullYear() && calMonth === now.getMonth()) return;
       calMonth--;
       if (calMonth < 0) { calMonth = 11; calYear--; }
       loadDisponibilita();
     });
     document.getElementById('bookCalNext').addEventListener('click', function() {
+      var maxDate = new Date();
+      maxDate.setMonth(maxDate.getMonth() + 3);
+      if (calYear > maxDate.getFullYear() || (calYear === maxDate.getFullYear() && calMonth >= maxDate.getMonth())) return;
       calMonth++;
       if (calMonth > 11) { calMonth = 0; calYear++; }
       loadDisponibilita();
@@ -1249,6 +1273,8 @@
     // Submit
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      if (isSubmitting) return;
+
       var nome = document.getElementById('bookNome').value.trim();
       var email = document.getElementById('bookEmail').value.trim();
       var telefono = document.getElementById('bookTelefono').value.trim();
@@ -1262,6 +1288,15 @@
       }
 
       if (!nome || !email || !auto || !selectedService || !selectedDate || !selectedOra) return;
+
+      // Controlla che la data non sia nel passato (tab aperta a lungo)
+      var now = new Date();
+      now.setHours(0,0,0,0);
+      if (new Date(selectedDate) < now) {
+        alert('La data selezionata non e\' piu\' disponibile. Scegli un\'altra data.');
+        goToStep(2);
+        return;
+      }
 
       // Validazione email
       var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1279,6 +1314,7 @@
         }
       }
 
+      isSubmitting = true;
       btnSubmit.disabled = true;
       btnSubmit.textContent = 'Invio in corso...';
 
@@ -1322,6 +1358,7 @@
         document.getElementById('bookingSuccess').style.display = 'block';
       }).catch(function(err) {
         console.error('Booking error:', err);
+        isSubmitting = false;
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Conferma Prenotazione';
         var msg = (err && err.message) || '';
@@ -1342,6 +1379,7 @@
       form.style.display = '';
       document.querySelector('.booking-steps').style.display = 'flex';
       document.getElementById('bookingSuccess').style.display = 'none';
+      isSubmitting = false;
       selectedService = null;
       selectedDate = null;
       selectedFascia = null;
@@ -1353,6 +1391,7 @@
       document.getElementById('bookTelefono').value = '';
       document.getElementById('bookAuto').value = '';
       document.getElementById('bookNote').value = '';
+      document.getElementById('bookConsent').checked = false;
       btnSubmit.disabled = false;
       btnSubmit.textContent = 'Conferma Prenotazione';
       goToStep(1);
