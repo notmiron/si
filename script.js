@@ -1324,7 +1324,16 @@
         console.error('Booking error:', err);
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Conferma Prenotazione';
-        alert('Si e\' verificato un errore. Riprova o contattaci telefonicamente.');
+        var msg = (err && err.message) || '';
+        if (msg.indexOf('gia una prenotazione') !== -1) {
+          alert('Hai gia\' una prenotazione per questa data. Contattaci per modificarla.');
+        } else if (msg.indexOf('Slot non disponibile') !== -1) {
+          alert('Questo slot non e\' piu\' disponibile. Prova un altro orario.');
+        } else if (msg.indexOf('Giorno chiuso') !== -1) {
+          alert('L\'officina e\' chiusa in questa data. Scegli un altro giorno.');
+        } else {
+          alert('Si e\' verificato un errore. Riprova o contattaci telefonicamente.');
+        }
       });
     });
 

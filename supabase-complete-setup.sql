@@ -213,6 +213,7 @@ CREATE OR REPLACE FUNCTION get_disponibilita(data_inizio DATE, data_fine DATE)
 RETURNS TABLE (
   giorno DATE,
   fascia TEXT,
+  slot_ora TEXT,
   conteggio BIGINT
 ) AS $$
 BEGIN
@@ -221,11 +222,11 @@ BEGIN
   END IF;
 
   RETURN QUERY
-  SELECT p.data AS giorno, p.fascia_oraria AS fascia, COUNT(*) AS conteggio
+  SELECT p.data AS giorno, p.fascia_oraria AS fascia, p.ora::TEXT AS slot_ora, COUNT(*) AS conteggio
   FROM prenotazioni p
   WHERE p.data BETWEEN data_inizio AND data_fine
     AND p.stato IN ('in_attesa', 'confermata')
-  GROUP BY p.data, p.fascia_oraria;
+  GROUP BY p.data, p.fascia_oraria, p.ora;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
