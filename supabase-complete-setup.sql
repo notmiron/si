@@ -139,7 +139,19 @@ RETURNS TRIGGER AS $$
 DECLARE
   max_slot INTEGER;
   current_count INTEGER;
+  duplicate_count INTEGER;
 BEGIN
+  -- Blocca prenotazioni duplicate: stessa email + stesso giorno
+  SELECT COUNT(*) INTO duplicate_count
+  FROM prenotazioni
+  WHERE email = NEW.email
+    AND data = NEW.data
+    AND stato IN ('in_attesa', 'confermata');
+
+  IF duplicate_count > 0 THEN
+    RAISE EXCEPTION 'Hai gia una prenotazione per questa data. Contattaci per modificarla.';
+  END IF;
+
   -- Blocca prenotazioni su giorni chiusi
   IF EXISTS (SELECT 1 FROM giorni_chiusi WHERE data = NEW.data) THEN
     RAISE EXCEPTION 'Giorno chiuso: impossibile prenotare per il %', NEW.data;
