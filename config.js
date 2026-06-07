@@ -8,7 +8,7 @@
 const CONFIG = {
   // Supabase – Trova in: supabase.com → Settings → API
   SUPABASE_URL: 'https://swyoegecrtctnevuqarm.supabase.co',
-  SUPABASE_ANON_KEY: 'sb_publishable_D5C2T5XEoUWCq5oalr7kGg_xG3y6n4v',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3eW9lZ2VjcnRjdG5ldnVxYXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDU2MzUsImV4cCI6MjA5NjE4MTYzNX0.ywFzXCpTUGjgUoRf4URwfauC2dftSwf-OtTtIIUGPOA',
 
   // Info officina
   BUSINESS_NAME: 'Control Garage',
