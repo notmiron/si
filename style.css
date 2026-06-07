@@ -454,8 +454,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: clamp(1rem, 2.5vh, 1.5rem);
-  padding: 0.9rem 2.2rem;
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+  padding: 1rem 2.4rem;
   background: #fff;
   color: #111;
   font-family: 'Inter', sans-serif;
@@ -531,10 +531,8 @@ body {
   }
 
   .hero-booking-btn {
-    width: 100%;
-    justify-content: center;
-    margin-top: clamp(1rem, 3vh, 1.5rem);
-    padding: 1rem 2rem;
+    margin-top: clamp(2rem, 5vh, 3rem);
+    padding: 1rem 2.4rem;
     font-size: 0.95rem;
   }
 }
