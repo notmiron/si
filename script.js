@@ -1413,7 +1413,17 @@
     link.href = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap';
     document.head.appendChild(link);
 
-    document.body.classList.remove('fonts-blocked');
+    // Wait for fonts to actually load before removing fallback styles
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        document.body.classList.remove('fonts-blocked');
+      });
+    } else {
+      // Fallback for older browsers: wait a bit for fonts to download
+      setTimeout(function () {
+        document.body.classList.remove('fonts-blocked');
+      }, 1000);
+    }
   }
 
   function loadGoogleMaps() {
