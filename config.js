@@ -15,7 +15,6 @@ const CONFIG = {
   BUSINESS_EMAIL: 'info@controlgarage.eu',
   // OWNER_EMAIL viene usato solo lato server (Supabase Edge Function)
   // Non esporre email personali nel frontend
-  OWNER_EMAIL: 'mirondevx@gmail.com',
   BUSINESS_PHONE: '388 922 9893',
   BUSINESS_ADDRESS: 'Via Ettore Benini, 3 – 47121 Forlì FC',
 };

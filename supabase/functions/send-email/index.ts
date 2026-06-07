@@ -8,6 +8,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") || "";
+const OWNER_EMAIL = Deno.env.get("OWNER_EMAIL") || "";
 const FROM_EMAIL = "Control Garage <onboarding@resend.dev>";
 
 const ALLOWED_ORIGINS = [
@@ -142,10 +143,10 @@ serve(async (req) => {
       });
     } else if (type === "nuova_prenotazione") {
       // Notification to owner about new booking
-      const ownerEmail = body.owner_email;
+      const ownerEmail = OWNER_EMAIL;
       if (!ownerEmail) {
-        return new Response(JSON.stringify({ error: "Missing owner_email" }), {
-          status: 400,
+        return new Response(JSON.stringify({ error: "OWNER_EMAIL not configured" }), {
+          status: 500,
           headers: { "Content-Type": "application/json", ...corsHeaders },
         });
       }
