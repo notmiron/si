@@ -1308,6 +1308,7 @@
             auto: auto,
             telefono: telefono || '',
             note_cliente: note || '',
+            owner_email: CONFIG.OWNER_EMAIL,
             business_name: CONFIG.BUSINESS_NAME,
             business_phone: CONFIG.BUSINESS_PHONE,
             business_address: CONFIG.BUSINESS_ADDRESS
