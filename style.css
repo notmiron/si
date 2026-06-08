@@ -837,6 +837,269 @@ section::before {
 /* ============================================
    Lavori / Gallery Section
    ============================================ */
+/* ============================================
+   Social Section
+   ============================================ */
+.social-section {
+  padding: 80px 0;
+}
+
+.social-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.social-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 2px;
+  overflow: hidden;
+  background: var(--border-subtle);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.social-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.social-card:hover::before {
+  opacity: 1;
+}
+
+.social-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.social-card--tiktok::before {
+  background: linear-gradient(135deg, #69c9d0, #ee1d52, #69c9d0);
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite paused;
+}
+
+.social-card--instagram::before {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite paused;
+}
+
+.social-card--shop::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.15), rgba(255,255,255,0.5));
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite paused;
+}
+
+.social-card:hover::before {
+  animation-play-state: running;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.social-card-glow {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.social-card:hover .social-card-glow {
+  opacity: 1;
+}
+
+.social-card--tiktok .social-card-glow {
+  background: radial-gradient(circle, rgba(105, 201, 208, 0.15) 0%, rgba(238, 29, 82, 0.08) 50%, transparent 70%);
+}
+
+.social-card--instagram .social-card-glow {
+  background: radial-gradient(circle, rgba(225, 48, 108, 0.15) 0%, rgba(240, 148, 51, 0.08) 50%, transparent 70%);
+}
+
+.social-card--shop .social-card-glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+}
+
+.social-card-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 32px 40px;
+  border-radius: calc(var(--radius-lg) - 2px);
+  background: linear-gradient(180deg, var(--bg-card) 0%, #151515 100%);
+  text-align: center;
+}
+
+.social-card-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.social-card:hover .social-card-icon {
+  transform: scale(1.12) rotate(-3deg);
+}
+
+.social-card-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+.social-card--tiktok .social-card-icon {
+  background: linear-gradient(145deg, #1a1a1a, #000);
+  box-shadow: 0 8px 28px rgba(105, 201, 208, 0.2), 0 0 0 1px rgba(105, 201, 208, 0.1);
+}
+
+.social-card--tiktok:hover .social-card-icon {
+  box-shadow: 0 12px 40px rgba(105, 201, 208, 0.35), 0 0 0 1px rgba(105, 201, 208, 0.25);
+}
+
+.social-card--instagram .social-card-icon {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  box-shadow: 0 8px 28px rgba(225, 48, 108, 0.3);
+}
+
+.social-card--instagram:hover .social-card-icon {
+  box-shadow: 0 12px 40px rgba(225, 48, 108, 0.45);
+}
+
+.social-card--shop .social-card-icon {
+  background: linear-gradient(145deg, #ffffff, #e8e8e8);
+  color: #0a0a0a;
+  box-shadow: 0 8px 28px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.social-card--shop:hover .social-card-icon {
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.social-card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+}
+
+.social-card-handle {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  margin-top: -6px;
+}
+
+.social-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 10px;
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  transition: all 0.35s ease;
+  background: transparent;
+}
+
+.social-card-cta svg {
+  transition: transform 0.35s ease;
+  display: inline-block;
+}
+
+.social-card:hover .social-card-cta svg {
+  transform: translateX(4px);
+}
+
+.social-card--tiktok:hover .social-card-cta {
+  border-color: #69c9d0;
+  color: #69c9d0;
+  background: rgba(105, 201, 208, 0.08);
+  box-shadow: 0 0 20px rgba(105, 201, 208, 0.1);
+}
+
+.social-card--instagram:hover .social-card-cta {
+  border-color: #e1306c;
+  color: #e1306c;
+  background: rgba(225, 48, 108, 0.08);
+  box-shadow: 0 0 20px rgba(225, 48, 108, 0.1);
+}
+
+.social-card--shop:hover .social-card-cta {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.06);
+}
+
+/* Hover glow on whole card */
+.social-card--tiktok:hover {
+  box-shadow: 0 20px 60px rgba(105, 201, 208, 0.1), 0 0 0 0 transparent;
+}
+
+.social-card--instagram:hover {
+  box-shadow: 0 20px 60px rgba(225, 48, 108, 0.1), 0 0 0 0 transparent;
+}
+
+.social-card--shop:hover {
+  box-shadow: 0 20px 60px rgba(255, 255, 255, 0.04), 0 0 0 0 transparent;
+}
+
+@media (max-width: 768px) {
+  .social-cards {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    gap: 16px;
+  }
+  .social-card-inner {
+    padding: 36px 28px 32px;
+    gap: 12px;
+  }
+  .social-card-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+  }
+  .social-card-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  .social-card-name {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================================
+   Lavori Section
+   ============================================ */
 .lavori-section {
   background: var(--bg-elevated);
 }
