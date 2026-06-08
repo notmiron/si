@@ -1736,7 +1736,7 @@
             '<div style="font-weight:600">' + esc(b.nome) + '</div>' +
             '<div class="td-email">' + esc(b.email) + (b.telefono ? ' &middot; ' + esc(b.telefono) : '') + '</div>' +
           '</td>' +
-          '<td class="td-secondary hide-mobile">' + esc(b.auto) + '</td>' +
+          '<td class="td-secondary hide-mobile">' + esc(b.auto) + (b.km_auto ? ' &middot; ' + esc(b.km_auto) + ' km' : '') + '</td>' +
           '<td class="td-secondary hide-mobile">' + esc(serviceName) + '</td>' +
           '<td class="td-secondary">' + formatDateIT(b.data) + '</td>' +
           '<td><span class="status-badge" style="background:var(--accent-dim);color:var(--text-primary)">' + oraDisplay + '</span></td>' +
@@ -1758,7 +1758,7 @@
           '</div>' +
           '<div class="booking-card-details">' +
             '<div class="booking-card-detail"><div class="booking-card-detail-label">Servizio</div><div class="booking-card-detail-value">' + esc(serviceName) + '</div></div>' +
-            '<div class="booking-card-detail"><div class="booking-card-detail-label">Auto</div><div class="booking-card-detail-value">' + esc(b.auto) + '</div></div>' +
+            '<div class="booking-card-detail"><div class="booking-card-detail-label">Auto</div><div class="booking-card-detail-value">' + esc(b.auto) + (b.km_auto ? ' &middot; ' + esc(b.km_auto) + ' km' : '') + '</div></div>' +
             '<div class="booking-card-detail"><div class="booking-card-detail-label">Data</div><div class="booking-card-detail-value">' + formatDateIT(b.data) + '</div></div>' +
             '<div class="booking-card-detail"><div class="booking-card-detail-label">Orario</div><div class="booking-card-detail-value">' + oraDisplay + '</div></div>' +
           '</div>' +

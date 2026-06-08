@@ -69,6 +69,7 @@ CREATE TABLE prenotazioni (
   email TEXT NOT NULL CHECK (length(email) <= 254),
   telefono TEXT CHECK (length(telefono) <= 20),
   auto TEXT NOT NULL CHECK (length(auto) <= 200),
+  km_auto TEXT CHECK (length(km_auto) <= 10),
   note TEXT CHECK (length(note) <= 2000),
   data DATE NOT NULL,
   fascia_oraria TEXT NOT NULL CHECK (fascia_oraria IN ('mattina', 'pomeriggio')),

@@ -152,6 +152,7 @@ serve(async (req) => {
       }
 
       const safeAuto = escapeHtml(body.auto || "");
+      const safeKmAuto = escapeHtml(body.km_auto || "");
       const safeTelefono = escapeHtml(body.telefono || "");
       const safeNoteCliente = escapeHtml(body.note_cliente || "");
 
@@ -165,6 +166,7 @@ serve(async (req) => {
           { label: "Email", value: escapeHtml(to) },
           ...(safeTelefono ? [{ label: "Telefono", value: safeTelefono }] : []),
           { label: "Auto", value: safeAuto || "-" },
+          ...(safeKmAuto ? [{ label: "Km", value: safeKmAuto }] : []),
           { label: "Servizio", value: safeService },
           { label: "Data", value: dateFormatted },
           { label: "Fascia oraria", value: fasciaLabel },

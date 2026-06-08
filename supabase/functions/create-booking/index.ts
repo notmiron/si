@@ -51,7 +51,7 @@ serve(async (req) => {
   try {
     const body = await req.json();
     const {
-      servizio_id, nome, email, telefono, auto, note,
+      servizio_id, nome, email, telefono, auto, km_auto, note,
       data, fascia_oraria, ora,
       // Anti-bot fields
       cf_turnstile_token, _hp_website, _form_loaded_at,
@@ -133,7 +133,7 @@ serve(async (req) => {
     }
 
     if (nome.length > 200 || email.length > 254 || auto.length > 200 ||
-        (telefono && telefono.length > 20) || (note && note.length > 2000)) {
+        (telefono && telefono.length > 20) || (km_auto && km_auto.length > 10) || (note && note.length > 2000)) {
       return new Response(JSON.stringify({ error: "Dati troppo lunghi." }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -151,6 +151,7 @@ serve(async (req) => {
         email,
         telefono: telefono || null,
         auto,
+        km_auto: km_auto || null,
         note: note || null,
         data,
         fascia_oraria,
@@ -190,6 +191,7 @@ serve(async (req) => {
       const safeName = escapeHtml(nome);
       const safeService = escapeHtml(service_name || "");
       const safeAuto = escapeHtml(auto);
+      const safeKmAuto = escapeHtml(km_auto || "");
       const safeTelefono = escapeHtml(telefono || "");
       const safeNoteCliente = escapeHtml(note || "");
       const safeBusinessName = escapeHtml(business_name || "Control Garage");
@@ -223,6 +225,7 @@ serve(async (req) => {
       <tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Email</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${escapeHtml(email)}</td></tr>
       ${safeTelefono ? `<tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Telefono</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${safeTelefono}</td></tr>` : ""}
       <tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Auto</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${safeAuto}</td></tr>
+      ${safeKmAuto ? `<tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Km</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${safeKmAuto}</td></tr>` : ""}
       <tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Servizio</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${safeService}</td></tr>
       <tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Data</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${dateFormatted}</td></tr>
       <tr><td style="padding:10px 16px;color:#999;font-size:14px;border-bottom:1px solid #222">Fascia</td><td style="padding:10px 16px;color:#f0f0f0;font-size:14px;font-weight:600;border-bottom:1px solid #222;text-align:right">${fasciaLabel}</td></tr>

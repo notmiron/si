@@ -1290,6 +1290,7 @@
       var email = document.getElementById('bookEmail').value.trim();
       var telefono = document.getElementById('bookTelefono').value.trim();
       var auto = document.getElementById('bookAuto').value.trim();
+      var kmAuto = document.getElementById('bookKmAuto').value.trim();
       var note = document.getElementById('bookNote').value.trim();
       var consent = document.getElementById('bookConsent').checked;
 
@@ -1352,6 +1353,7 @@
         email: email,
         telefono: telefono || null,
         auto: auto,
+        km_auto: kmAuto || null,
         note: note || null,
         data: selectedDate,
         fascia_oraria: selectedFascia,
@@ -1370,6 +1372,7 @@
             fascia: selectedFascia,
             service: selectedService.nome,
             auto: auto,
+            km_auto: kmAuto || '',
             telefono: telefono || '',
             note_cliente: note || '',
             business_name: CONFIG.BUSINESS_NAME,
