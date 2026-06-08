@@ -10,6 +10,11 @@ const CONFIG = {
   SUPABASE_URL: 'https://swyoegecrtctnevuqarm.supabase.co',
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3eW9lZ2VjcnRjdG5ldnVxYXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDU2MzUsImV4cCI6MjA5NjE4MTYzNX0.ywFzXCpTUGjgUoRf4URwfauC2dftSwf-OtTtIIUGPOA',
 
+  // Cloudflare Turnstile – Anti-bot (gratuito)
+  // Registrati su dash.cloudflare.com → Turnstile → Aggiungi sito
+  // Lascia vuoto per disabilitare (honeypot + timing restano attivi)
+  TURNSTILE_SITE_KEY: '',
+
   // Info officina
   BUSINESS_NAME: 'Control Garage',
   BUSINESS_EMAIL: 'info@controlgarage.eu',

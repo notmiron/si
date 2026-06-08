@@ -901,6 +901,48 @@
 
     var sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
+    // Anti-bot: record when the form was loaded
+    var formLoadedAt = Date.now();
+
+    // Client-side rate limiting (localStorage)
+    var RATE_LIMIT_KEY = 'cg_booking_submissions';
+    var RATE_LIMIT_MAX = 3;
+    var RATE_LIMIT_WINDOW = 10 * 60 * 1000; // 10 minutes
+
+    function checkClientRateLimit() {
+      try {
+        var raw = localStorage.getItem(RATE_LIMIT_KEY);
+        var submissions = raw ? JSON.parse(raw) : [];
+        var now = Date.now();
+        submissions = submissions.filter(function(t) { return now - t < RATE_LIMIT_WINDOW; });
+        if (submissions.length >= RATE_LIMIT_MAX) return false;
+        submissions.push(now);
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(submissions));
+        return true;
+      } catch (e) { return true; }
+    }
+
+    // Cloudflare Turnstile (load only if configured)
+    var turnstileToken = '';
+    if (CONFIG.TURNSTILE_SITE_KEY) {
+      var container = document.getElementById('turnstileContainer');
+      if (container) container.style.display = '';
+      var script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad';
+      script.async = true;
+      document.head.appendChild(script);
+      window.onTurnstileLoad = function() {
+        if (window.turnstile) {
+          window.turnstile.render('#turnstileWidget', {
+            sitekey: CONFIG.TURNSTILE_SITE_KEY,
+            callback: function(token) { turnstileToken = token; },
+            'expired-callback': function() { turnstileToken = ''; },
+            theme: 'dark'
+          });
+        }
+      };
+    }
+
     var MONTH_NAMES = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
     var DAY_NAMES = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
 
@@ -1317,60 +1359,84 @@
         }
       }
 
+      // Anti-bot: honeypot check
+      var honeypot = document.getElementById('bookWebsite');
+      if (honeypot && honeypot.value) {
+        // Bot detected — show fake success
+        form.style.display = 'none';
+        document.querySelector('.booking-steps').style.display = 'none';
+        document.getElementById('bookingSuccess').style.display = 'block';
+        return;
+      }
+
+      // Client-side rate limit
+      if (!checkClientRateLimit()) {
+        alert('Hai effettuato troppe prenotazioni. Riprova tra qualche minuto.');
+        return;
+      }
+
+      // Turnstile check (if configured)
+      if (CONFIG.TURNSTILE_SITE_KEY && !turnstileToken) {
+        alert('Attendi il completamento della verifica anti-bot e riprova.');
+        return;
+      }
+
       isSubmitting = true;
       btnSubmit.disabled = true;
       btnSubmit.textContent = 'Invio in corso...';
 
-      sb.from('prenotazioni').insert({
-        servizio_id: selectedService.id,
-        nome: nome,
-        email: email,
-        telefono: telefono || null,
-        auto: auto,
-        note: note || null,
-        data: selectedDate,
-        fascia_oraria: selectedFascia,
-        ora: selectedOra + ':00',
-        stato: 'in_attesa'
+      sb.functions.invoke('create-booking', {
+        body: {
+          servizio_id: selectedService.id,
+          nome: nome,
+          email: email,
+          telefono: telefono || null,
+          auto: auto,
+          note: note || null,
+          data: selectedDate,
+          fascia_oraria: selectedFascia,
+          ora: selectedOra + ':00',
+          // Anti-bot fields
+          cf_turnstile_token: turnstileToken || '',
+          _hp_website: (honeypot && honeypot.value) || '',
+          _form_loaded_at: String(formLoadedAt),
+          // For email notification
+          service_name: selectedService.nome,
+          business_name: CONFIG.BUSINESS_NAME,
+          business_phone: CONFIG.BUSINESS_PHONE,
+          business_address: CONFIG.BUSINESS_ADDRESS
+        }
       }).then(function(res) {
         if (res.error) throw res.error;
-
-        // Notify owner via email (fire-and-forget, don't block success)
-        sb.functions.invoke('send-email', {
-          body: {
-            to: email,
-            name: nome,
-            type: 'nuova_prenotazione',
-            date: selectedDate,
-            fascia: selectedFascia,
-            service: selectedService.nome,
-            auto: auto,
-            telefono: telefono || '',
-            note_cliente: note || '',
-            business_name: CONFIG.BUSINESS_NAME,
-            business_phone: CONFIG.BUSINESS_PHONE,
-            business_address: CONFIG.BUSINESS_ADDRESS
-          }
-        }).catch(function(emailErr) {
-          console.error('Owner notification error:', emailErr);
-        });
+        var data = res.data;
+        if (data && data.error) throw new Error(data.error);
 
         // Show success
         form.style.display = 'none';
         document.querySelector('.booking-steps').style.display = 'none';
         document.getElementById('bookingSuccess').style.display = 'block';
+
+        // Reset Turnstile for next booking
+        if (CONFIG.TURNSTILE_SITE_KEY && window.turnstile) {
+          turnstileToken = '';
+          window.turnstile.reset('#turnstileWidget');
+        }
       }).catch(function(err) {
         console.error('Booking error:', err);
         isSubmitting = false;
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Conferma Prenotazione';
         var msg = (err && err.message) || '';
-        if (msg.indexOf('gia una prenotazione') !== -1) {
+        if (msg.indexOf('gia una prenotazione') !== -1 || msg.indexOf('già una prenotazione') !== -1) {
           alert('Hai gia\' una prenotazione per questa data. Contattaci per modificarla.');
-        } else if (msg.indexOf('Slot non disponibile') !== -1) {
+        } else if (msg.indexOf('Slot non') !== -1 || msg.indexOf('più disponibile') !== -1) {
           alert('Questo slot non e\' piu\' disponibile. Prova un altro orario.');
-        } else if (msg.indexOf('Giorno chiuso') !== -1) {
+        } else if (msg.indexOf('chiusa') !== -1) {
           alert('L\'officina e\' chiusa in questa data. Scegli un altro giorno.');
+        } else if (msg.indexOf('Troppe prenotazioni') !== -1 || msg.indexOf('troppo veloce') !== -1) {
+          alert('Troppe prenotazioni. Riprova tra qualche minuto.');
+        } else if (msg.indexOf('anti-bot') !== -1) {
+          alert(msg);
         } else {
           alert('Si e\' verificato un errore. Riprova o contattaci telefonicamente.');
         }
@@ -1383,6 +1449,7 @@
       document.querySelector('.booking-steps').style.display = 'flex';
       document.getElementById('bookingSuccess').style.display = 'none';
       isSubmitting = false;
+      formLoadedAt = Date.now(); // Reset timing for new booking
       selectedService = null;
       selectedDate = null;
       selectedFascia = null;
