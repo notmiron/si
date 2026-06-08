@@ -415,9 +415,9 @@
     .calendar-day:hover { border-color: var(--border-default); background: var(--bg-card-hover); }
     .calendar-day.empty { background: transparent; border-color: transparent; cursor: default; }
     .calendar-day.empty:hover { background: transparent; border-color: transparent; }
-    .calendar-day.today { border-color: #fff; }
-    .calendar-day.selected { background: rgba(255,255,255,0.1); border-color: #fff; }
-    .calendar-day.has-bookings .day-number { color: #fff; font-weight: 700; }
+    .calendar-day.today { border-color: var(--text-primary); }
+    .calendar-day.selected { background: rgba(255,255,255,0.1); border-color: var(--text-primary); }
+    .calendar-day.has-bookings .day-number { color: var(--text-primary); font-weight: 700; }
     .calendar-day .day-number { font-size: 0.85rem; color: var(--text-secondary); }
     .calendar-day .day-count {
       font-size: 0.6rem;
@@ -1123,13 +1123,13 @@
             <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px;">
               <div style="display:flex;flex-direction:column;gap:4px;">
                 <label style="font-size:12px;color:#888;">Data</label>
-                <input type="date" id="chiusoData" style="background:#1a1a1a;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:6px;font-size:14px;" />
+                <input type="date" id="chiusoData" style="background:var(--bg-elevated);border:1px solid var(--border-subtle);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-size:14px;" />
               </div>
               <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:150px;">
                 <label style="font-size:12px;color:#888;">Motivo (opzionale)</label>
-                <input type="text" id="chiusoMotivo" placeholder="Es. Ferragosto, Ferie estive..." style="background:#1a1a1a;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:6px;font-size:14px;" />
+                <input type="text" id="chiusoMotivo" placeholder="Es. Ferragosto, Ferie estive..." style="background:var(--bg-elevated);border:1px solid var(--border-subtle);color:var(--text-primary);padding:8px 12px;border-radius:6px;font-size:14px;" />
               </div>
-              <button id="btnAddChiuso" style="background:#fff;color:#0a0a0a;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;">+ Aggiungi</button>
+              <button id="btnAddChiuso" style="background:var(--accent);color:var(--bg-base);border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;white-space:nowrap;">+ Aggiungi</button>
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;" id="chiusoQuickBtns">
               <span style="font-size:12px;color:#666;align-self:center;">Rapido:</span>
@@ -1374,14 +1374,14 @@
       }
       state.giorniChiusi.forEach(function(g) {
         var item = document.createElement('div');
-        item.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background:#1a1a1a;border:1px solid #333;border-radius:6px;padding:8px 12px;';
+        item.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:6px;padding:8px 12px;';
         var dateFormatted = formatDateIT(g.data);
         item.innerHTML =
           '<div style="display:flex;gap:12px;align-items:center;">' +
             '<span style="font-weight:600;color:#ef4444;">' + esc(dateFormatted) + '</span>' +
             '<span style="color:#888;font-size:13px;">' + esc(g.motivo || '') + '</span>' +
           '</div>' +
-          '<button data-chiuso-id="' + g.id + '" style="background:transparent;border:1px solid #333;color:#888;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:12px;">Rimuovi</button>';
+          '<button data-chiuso-id="' + g.id + '" style="background:transparent;border:1px solid var(--border-subtle);color:var(--text-tertiary);padding:4px 10px;border-radius:4px;cursor:pointer;font-size:12px;">Rimuovi</button>';
         list.appendChild(item);
       });
 
@@ -1452,7 +1452,7 @@
       festivita.forEach(function(f) {
         var btn = document.createElement('button');
         btn.textContent = f.nome;
-        btn.style.cssText = 'background:#1a1a1a;border:1px solid #333;color:#ccc;padding:4px 10px;border-radius:12px;cursor:pointer;font-size:12px;';
+        btn.style.cssText = 'background:var(--bg-elevated);border:1px solid var(--border-subtle);color:var(--text-secondary);padding:4px 10px;border-radius:12px;cursor:pointer;font-size:12px;';
         btn.addEventListener('click', function() {
           $('chiusoData').value = f.data;
           $('chiusoMotivo').value = f.nome;
