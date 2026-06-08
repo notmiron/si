@@ -32,7 +32,7 @@
       '.hero-title', '.hero-subtitle', '.hero-accent-line',
       '#heroContent', '.garage-door',
       '.reveal-up',
-      '.menu-card', '.review-card', '.info-block',
+      '.menu-card', '.info-block',
       '.stat-number', '.nav-cta'
     ];
     selectors.forEach(function (sel) {
@@ -49,7 +49,7 @@
      ============================================ */
   function initIntersectionFallback() {
     if (typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal-up, .menu-card, .review-card, .info-block').forEach(function (el) {
+      document.querySelectorAll('.reveal-up, .menu-card, .info-block').forEach(function (el) {
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
@@ -67,7 +67,7 @@
       });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.reveal-up, .menu-card, .review-card, .info-block').forEach(function (el) {
+    document.querySelectorAll('.reveal-up, .menu-card, .info-block').forEach(function (el) {
       el.style.opacity = '0';
       el.style.transform = 'translateY(24px)';
       observer.observe(el);
@@ -285,23 +285,6 @@
         stagger: 0.08,
         scrollTrigger: {
           trigger: '.menu-grid',
-          start: 'top 80%',
-          once: true,
-        },
-      });
-    }
-
-    // Review cards slide in from right
-    var reviewCards = gsap.utils.toArray('.review-card');
-    if (reviewCards.length) {
-      gsap.to(reviewCards, {
-        opacity: 1,
-        x: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: '.reviews-grid',
           start: 'top 80%',
           once: true,
         },
@@ -600,7 +583,7 @@
     var ringX = -200, ringY = -200;
     var rafId;
 
-    var HOVER_SELECTORS = 'a, button, .btn, .menu-card, .nav-toggle, .review-card, .social-links a, .badge';
+    var HOVER_SELECTORS = 'a, button, .btn, .menu-card, .nav-toggle, .social-links a, .badge';
 
     window.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;

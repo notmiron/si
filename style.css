@@ -835,106 +835,6 @@ section::before {
 }
 
 /* ============================================
-   Reviews Section
-   ============================================ */
-.reviews-section {
-  background: var(--bg-base);
-}
-
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-
-.review-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: transform var(--transition-slow), border-color var(--transition-base);
-  overflow: hidden;
-}
-
-.review-card::before,
-.review-card::after {
-  display: none;
-}
-
-.review-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-default);
-}
-
-.review-stars {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 16px;
-}
-
-.review-stars svg {
-  width: 16px;
-  height: 16px;
-  fill: #fff;
-}
-
-.review-text {
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-bottom: 24px;
-  line-height: 1.8;
-  font-size: 0.95rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-}
-
-.review-author {
-  color: var(--text-primary);
-  font-weight: 600;
-  font-size: 0.88rem;
-  font-family: 'Inter', sans-serif;
-}
-
-.review-date {
-  color: var(--text-tertiary);
-  font-size: 0.78rem;
-  margin-top: 2px;
-  font-family: 'Inter', sans-serif;
-}
-
-/* Reviews CTA */
-.reviews-cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.reviews-cta-text {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  margin-bottom: 20px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-}
-
-.btn-google-review {
-  background: #fff;
-  color: #0a0a0a;
-  font-weight: 700;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-}
-
-.btn-google-review:hover {
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
-}
-
-/* ============================================
    Lavori / Gallery Section
    ============================================ */
 .lavori-section {
@@ -2107,10 +2007,6 @@ section::before {
   transform: translateY(0);
 }
 
-.review-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* ============================================
    Scroll Progress Bar
@@ -2355,9 +2251,6 @@ section::before {
     padding: 24px;
   }
 
-  .review-card {
-    padding: 24px;
-  }
 
   .footer-grid {
     grid-template-columns: 1fr;
