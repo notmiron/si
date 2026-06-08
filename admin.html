@@ -1110,25 +1110,20 @@
           <div class="settings-card">
             <h3 class="settings-card-title">Giorni di Apertura</h3>
             <div class="settings-row">
-              <label>Sabato aperto</label>
-              <label class="toggle-switch">
-                <input type="checkbox" id="setSabatoAperto" checked />
-                <span class="toggle-slider"></span>
-              </label>
+              <label>Sabato</label>
+              <select id="setSabato" style="background:var(--bg-elevated);color:var(--text-primary);border:1px solid var(--border-subtle);border-radius:8px;padding:8px 12px;font-size:14px;">
+                <option value="chiuso">Chiuso</option>
+                <option value="solo_mattina">Solo mattina</option>
+                <option value="tutto_giorno">Tutto il giorno</option>
+              </select>
             </div>
             <div class="settings-row">
-              <label>Sabato solo mattina</label>
-              <label class="toggle-switch">
-                <input type="checkbox" id="setSabatoSoloMattina" checked />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="settings-row">
-              <label>Domenica aperta</label>
-              <label class="toggle-switch">
-                <input type="checkbox" id="setDomenicaAperta" />
-                <span class="toggle-slider"></span>
-              </label>
+              <label>Domenica</label>
+              <select id="setDomenica" style="background:var(--bg-elevated);color:var(--text-primary);border:1px solid var(--border-subtle);border-radius:8px;padding:8px 12px;font-size:14px;">
+                <option value="chiuso">Chiuso</option>
+                <option value="solo_mattina">Solo mattina</option>
+                <option value="tutto_giorno">Tutto il giorno</option>
+              </select>
             </div>
             <div class="settings-row">
               <label>Promemoria ore prima</label>
@@ -1953,9 +1948,8 @@
       $('setMattinaFine').value = s.orario_mattina_fine;
       $('setPomeriggioInizio').value = s.orario_pomeriggio_inizio;
       $('setPomeriggioFine').value = s.orario_pomeriggio_fine;
-      $('setSabatoAperto').checked = s.sabato_aperto;
-      $('setSabatoSoloMattina').checked = s.sabato_solo_mattina;
-      $('setDomenicaAperta').checked = s.domenica_aperto;
+      $('setSabato').value = !s.sabato_aperto ? 'chiuso' : s.sabato_solo_mattina ? 'solo_mattina' : 'tutto_giorno';
+      $('setDomenica').value = !s.domenica_aperto ? 'chiuso' : s.domenica_solo_mattina ? 'solo_mattina' : 'tutto_giorno';
       $('setPromemoriaOre').checked = s.promemoria_ore_prima;
 
       // Services list
@@ -1985,9 +1979,10 @@
         orario_mattina_fine: $('setMattinaFine').value,
         orario_pomeriggio_inizio: $('setPomeriggioInizio').value,
         orario_pomeriggio_fine: $('setPomeriggioFine').value,
-        sabato_aperto: $('setSabatoAperto').checked,
-        sabato_solo_mattina: $('setSabatoSoloMattina').checked,
-        domenica_aperto: $('setDomenicaAperta').checked,
+        sabato_aperto: $('setSabato').value !== 'chiuso',
+        sabato_solo_mattina: $('setSabato').value === 'solo_mattina',
+        domenica_aperto: $('setDomenica').value !== 'chiuso',
+        domenica_solo_mattina: $('setDomenica').value === 'solo_mattina',
         promemoria_ore_prima: parseInt($('setPromemoriaOre').value)
       };
 

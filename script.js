@@ -1048,7 +1048,8 @@
 
         // Check if all slots are booked
         var dispo = disponibilita[dateStr] || {};
-        var slotsToCheck = isSaturday && settings && settings.sabato_solo_mattina ? allMattSlots : allMattSlots.concat(allPomSlots);
+        var onlyMorning = (isSaturday && settings && settings.sabato_solo_mattina) || (isSunday && settings && settings.domenica_solo_mattina);
+        var slotsToCheck = onlyMorning ? allMattSlots : allMattSlots.concat(allPomSlots);
         var allFull = slotsToCheck.length > 0 && slotsToCheck.every(function(s) { return dispo[s] && dispo[s] >= 1; });
         if (allFull && !isPast && !isSunday && !isChiuso) dayDisabled = true;
 
@@ -1099,6 +1100,7 @@
       var date = new Date(dateStr);
       var dow = (date.getDay() + 6) % 7;
       var isSaturday = dow === 5;
+      var isSunday = dow === 6;
       var duration = settings ? (settings.durata_slot || 30) : 30;
 
       // Check if this is today (to disable past time slots)
@@ -1155,7 +1157,8 @@
       var pomTitle = document.getElementById('slotPomeriggioTitle');
       gridPom.innerHTML = '';
 
-      if (isSaturday && settings && settings.sabato_solo_mattina) {
+      var hidePomeriggio = (isSaturday && settings && settings.sabato_solo_mattina) || (isSunday && settings && settings.domenica_solo_mattina);
+      if (hidePomeriggio) {
         pomTitle.style.display = 'none';
         gridPom.style.display = 'none';
       } else {

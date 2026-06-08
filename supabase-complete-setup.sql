@@ -53,6 +53,7 @@ CREATE TABLE impostazioni (
   sabato_aperto BOOLEAN NOT NULL DEFAULT TRUE,
   sabato_solo_mattina BOOLEAN NOT NULL DEFAULT TRUE,
   domenica_aperto BOOLEAN NOT NULL DEFAULT FALSE,
+  domenica_solo_mattina BOOLEAN NOT NULL DEFAULT FALSE,
   slot_urgenze_mattina INTEGER NOT NULL DEFAULT 1,
   slot_urgenze_pomeriggio INTEGER NOT NULL DEFAULT 1,
   promemoria_ore_prima INTEGER NOT NULL DEFAULT 24,
