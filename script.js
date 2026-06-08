@@ -904,23 +904,6 @@
     // Anti-bot: record when the form was loaded
     var formLoadedAt = Date.now();
 
-    // Client-side rate limiting (localStorage)
-    var RATE_LIMIT_KEY = 'cg_booking_submissions';
-    var RATE_LIMIT_MAX = 3;
-    var RATE_LIMIT_WINDOW = 10 * 60 * 1000; // 10 minutes
-
-    function checkClientRateLimit() {
-      try {
-        var raw = localStorage.getItem(RATE_LIMIT_KEY);
-        var submissions = raw ? JSON.parse(raw) : [];
-        var now = Date.now();
-        submissions = submissions.filter(function(t) { return now - t < RATE_LIMIT_WINDOW; });
-        if (submissions.length >= RATE_LIMIT_MAX) return false;
-        submissions.push(now);
-        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(submissions));
-        return true;
-      } catch (e) { return true; }
-    }
 
     // Cloudflare Turnstile (load only if configured)
     var turnstileToken = '';
@@ -1369,11 +1352,6 @@
         return;
       }
 
-      // Client-side rate limit
-      if (!checkClientRateLimit()) {
-        alert('Hai effettuato troppe prenotazioni. Riprova tra qualche minuto.');
-        return;
-      }
 
       // Turnstile check (if configured)
       if (CONFIG.TURNSTILE_SITE_KEY && !turnstileToken) {
