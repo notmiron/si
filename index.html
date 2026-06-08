@@ -393,6 +393,127 @@
     </div>
   </section>
 
+  <!-- ===================== PRENOTA ===================== -->
+  <section class="prenota-section" id="prenota" aria-labelledby="prenota-heading">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <p class="section-label">Prenota Online</p>
+        <h2 class="section-heading" id="prenota-heading"><span class="heading-bold">PRENOTA</span> <span class="heading-script">Appuntamento</span></h2>
+        <p class="section-intro text-body">Scegli il servizio, il giorno e la fascia oraria. Ti confermeremo via email.</p>
+      </div>
+
+      <div class="prenota-wrapper reveal-up">
+        <div class="booking-form-container" id="bookingFormContainer">
+          <!-- Step indicators -->
+          <div class="booking-steps">
+            <div class="booking-step active" data-step="1"><span class="step-num">1</span><span class="step-label">Servizio</span></div>
+            <div class="booking-step-line"></div>
+            <div class="booking-step" data-step="2"><span class="step-num">2</span><span class="step-label">Data</span></div>
+            <div class="booking-step-line"></div>
+            <div class="booking-step" data-step="3"><span class="step-num">3</span><span class="step-label">Dati</span></div>
+          </div>
+
+          <form id="bookingForm" novalidate>
+            <!-- Step 1: Service -->
+            <div class="booking-panel active" id="bookingStep1">
+              <h3 class="booking-panel-title">Che servizio ti serve?</h3>
+              <div class="service-options" id="serviceOptions">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Step 2: Date & Time -->
+            <div class="booking-panel" id="bookingStep2">
+              <h3 class="booking-panel-title">Quando preferisci?</h3>
+              <div class="booking-calendar" id="bookingCalendar">
+                <div class="booking-cal-header">
+                  <button type="button" class="booking-cal-nav" id="bookCalPrev">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                  </button>
+                  <span class="booking-cal-title" id="bookCalTitle"></span>
+                  <button type="button" class="booking-cal-nav" id="bookCalNext">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+                <div class="booking-cal-grid" id="bookCalGrid"></div>
+              </div>
+              <div class="slot-selector" id="slotSelector" style="display:none">
+                <h4 class="slot-section-title" id="slotMattinaTitle">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                  Mattina
+                </h4>
+                <div class="slot-grid" id="slotGridMattina"></div>
+                <h4 class="slot-section-title" id="slotPomeriggioTitle">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                  Pomeriggio
+                </h4>
+                <div class="slot-grid" id="slotGridPomeriggio"></div>
+              </div>
+            </div>
+
+            <!-- Step 3: Details -->
+            <div class="booking-panel" id="bookingStep3">
+              <h3 class="booking-panel-title">I tuoi dati</h3>
+              <div class="booking-fields">
+                <div class="booking-field">
+                  <label for="bookNome">Nome e cognome *</label>
+                  <input type="text" id="bookNome" placeholder="Mario Rossi" required maxlength="200" />
+                </div>
+                <div class="booking-field">
+                  <label for="bookEmail">Email *</label>
+                  <input type="email" id="bookEmail" placeholder="mario@email.com" required maxlength="254" />
+                </div>
+                <div class="booking-field">
+                  <label for="bookTelefono">Telefono</label>
+                  <input type="tel" id="bookTelefono" placeholder="388 000 0000" pattern="[\d\s\+\-]+" inputmode="tel" maxlength="20" />
+                </div>
+                <div class="booking-field">
+                  <label for="bookAuto">Modello auto *</label>
+                  <input type="text" id="bookAuto" placeholder="BMW 320d E90" required maxlength="200" />
+                </div>
+                <div class="booking-field booking-field-full">
+                  <label for="bookNote">Note aggiuntive</label>
+                  <textarea id="bookNote" rows="3" placeholder="Descrivi il problema o cosa vorresti fare..." maxlength="2000"></textarea>
+                </div>
+                <div class="booking-field booking-field-full">
+                  <label class="booking-consent">
+                    <input type="checkbox" id="bookConsent" required />
+                    <span>Acconsento al trattamento dei miei dati personali ai sensi del <a href="/privacy-policy.html" target="_blank" rel="noopener">Regolamento UE 2016/679 (GDPR)</a> *</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="booking-nav">
+              <button type="button" class="booking-btn-back" id="bookBtnBack" style="display:none">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Indietro
+              </button>
+              <button type="button" class="booking-btn-next" id="bookBtnNext">
+                Avanti
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button type="submit" class="booking-btn-submit" id="bookBtnSubmit" style="display:none">
+                Conferma Prenotazione
+              </button>
+            </div>
+          </form>
+
+          <!-- Success state -->
+          <div class="booking-success" id="bookingSuccess" style="display:none">
+            <div class="booking-success-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3 class="booking-success-title">Prenotazione Inviata!</h3>
+            <p class="booking-success-text">La tua richiesta e' stata ricevuta. Ti contatteremo via email per confermare l'appuntamento.</p>
+            <button type="button" class="booking-btn-new" id="bookBtnNew">Nuova Prenotazione</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== INFO & HOURS ===================== -->
   <section class="info-section" id="info" aria-labelledby="info-heading">
     <div class="container">
@@ -542,127 +663,6 @@
             <p>Sì, accettiamo ricambi portati dal cliente. Tieni presente che in questo caso la garanzia copre solo la manodopera e non il pezzo fornito. Ti consigliamo sempre di consultarci prima dell'acquisto per evitare incompatibilità.</p>
           </div>
         </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== PRENOTA ===================== -->
-  <section class="prenota-section" id="prenota" aria-labelledby="prenota-heading">
-    <div class="container">
-      <div class="section-header reveal-up">
-        <p class="section-label">Prenota Online</p>
-        <h2 class="section-heading" id="prenota-heading"><span class="heading-bold">PRENOTA</span> <span class="heading-script">Appuntamento</span></h2>
-        <p class="section-intro text-body">Scegli il servizio, il giorno e la fascia oraria. Ti confermeremo via email.</p>
-      </div>
-
-      <div class="prenota-wrapper reveal-up">
-        <div class="booking-form-container" id="bookingFormContainer">
-          <!-- Step indicators -->
-          <div class="booking-steps">
-            <div class="booking-step active" data-step="1"><span class="step-num">1</span><span class="step-label">Servizio</span></div>
-            <div class="booking-step-line"></div>
-            <div class="booking-step" data-step="2"><span class="step-num">2</span><span class="step-label">Data</span></div>
-            <div class="booking-step-line"></div>
-            <div class="booking-step" data-step="3"><span class="step-num">3</span><span class="step-label">Dati</span></div>
-          </div>
-
-          <form id="bookingForm" novalidate>
-            <!-- Step 1: Service -->
-            <div class="booking-panel active" id="bookingStep1">
-              <h3 class="booking-panel-title">Che servizio ti serve?</h3>
-              <div class="service-options" id="serviceOptions">
-                <!-- Populated by JS -->
-              </div>
-            </div>
-
-            <!-- Step 2: Date & Time -->
-            <div class="booking-panel" id="bookingStep2">
-              <h3 class="booking-panel-title">Quando preferisci?</h3>
-              <div class="booking-calendar" id="bookingCalendar">
-                <div class="booking-cal-header">
-                  <button type="button" class="booking-cal-nav" id="bookCalPrev">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-                  </button>
-                  <span class="booking-cal-title" id="bookCalTitle"></span>
-                  <button type="button" class="booking-cal-nav" id="bookCalNext">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                  </button>
-                </div>
-                <div class="booking-cal-grid" id="bookCalGrid"></div>
-              </div>
-              <div class="slot-selector" id="slotSelector" style="display:none">
-                <h4 class="slot-section-title" id="slotMattinaTitle">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                  Mattina
-                </h4>
-                <div class="slot-grid" id="slotGridMattina"></div>
-                <h4 class="slot-section-title" id="slotPomeriggioTitle">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                  Pomeriggio
-                </h4>
-                <div class="slot-grid" id="slotGridPomeriggio"></div>
-              </div>
-            </div>
-
-            <!-- Step 3: Details -->
-            <div class="booking-panel" id="bookingStep3">
-              <h3 class="booking-panel-title">I tuoi dati</h3>
-              <div class="booking-fields">
-                <div class="booking-field">
-                  <label for="bookNome">Nome e cognome *</label>
-                  <input type="text" id="bookNome" placeholder="Mario Rossi" required maxlength="200" />
-                </div>
-                <div class="booking-field">
-                  <label for="bookEmail">Email *</label>
-                  <input type="email" id="bookEmail" placeholder="mario@email.com" required maxlength="254" />
-                </div>
-                <div class="booking-field">
-                  <label for="bookTelefono">Telefono</label>
-                  <input type="tel" id="bookTelefono" placeholder="388 000 0000" pattern="[\d\s\+\-]+" inputmode="tel" maxlength="20" />
-                </div>
-                <div class="booking-field">
-                  <label for="bookAuto">Modello auto *</label>
-                  <input type="text" id="bookAuto" placeholder="BMW 320d E90" required maxlength="200" />
-                </div>
-                <div class="booking-field booking-field-full">
-                  <label for="bookNote">Note aggiuntive</label>
-                  <textarea id="bookNote" rows="3" placeholder="Descrivi il problema o cosa vorresti fare..." maxlength="2000"></textarea>
-                </div>
-                <div class="booking-field booking-field-full">
-                  <label class="booking-consent">
-                    <input type="checkbox" id="bookConsent" required />
-                    <span>Acconsento al trattamento dei miei dati personali ai sensi del <a href="/privacy-policy.html" target="_blank" rel="noopener">Regolamento UE 2016/679 (GDPR)</a> *</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Navigation -->
-            <div class="booking-nav">
-              <button type="button" class="booking-btn-back" id="bookBtnBack" style="display:none">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-                Indietro
-              </button>
-              <button type="button" class="booking-btn-next" id="bookBtnNext">
-                Avanti
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-              <button type="submit" class="booking-btn-submit" id="bookBtnSubmit" style="display:none">
-                Conferma Prenotazione
-              </button>
-            </div>
-          </form>
-
-          <!-- Success state -->
-          <div class="booking-success" id="bookingSuccess" style="display:none">
-            <div class="booking-success-icon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h3 class="booking-success-title">Prenotazione Inviata!</h3>
-            <p class="booking-success-text">La tua richiesta e' stata ricevuta. Ti contatteremo via email per confermare l'appuntamento.</p>
-            <button type="button" class="booking-btn-new" id="bookBtnNew">Nuova Prenotazione</button>
-          </div>
-        </div>
       </div>
     </div>
   </section>
