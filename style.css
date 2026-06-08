@@ -1797,8 +1797,7 @@ section::before {
   height: 48px;
   border-radius: 50%;
   border: none;
-  color: var(--text-secondary);
-  background: var(--bg-card);
+  color: #fff;
   transition: all var(--transition-base);
 }
 
@@ -1806,22 +1805,32 @@ section::before {
   transform: translateY(-3px) scale(1.08);
 }
 
-.social-links a.social-instagram:hover {
-  color: #fff;
+.social-links a.social-instagram {
   background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-  box-shadow: 0 8px 24px rgba(225, 48, 108, 0.3);
+  box-shadow: 0 4px 16px rgba(225, 48, 108, 0.25);
+}
+
+.social-links a.social-instagram:hover {
+  box-shadow: 0 8px 24px rgba(225, 48, 108, 0.4);
+}
+
+.social-links a.social-tiktok {
+  background: #010101;
+  box-shadow: 0 4px 16px rgba(105, 201, 208, 0.2);
 }
 
 .social-links a.social-tiktok:hover {
-  color: #fff;
-  background: #000;
-  box-shadow: 0 8px 24px rgba(105, 201, 208, 0.3);
+  box-shadow: 0 8px 24px rgba(105, 201, 208, 0.4);
+}
+
+.social-links a.social-web {
+  background: #fff;
+  color: #0a0a0a;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
 }
 
 .social-links a.social-web:hover {
-  color: #0a0a0a;
-  background: #fff;
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.25);
 }
 
 .social-links a svg {
