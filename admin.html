@@ -1064,27 +1064,6 @@
       <!-- ===================== TAB: IMPOSTAZIONI ===================== -->
       <div class="tab-content" id="tab-impostazioni">
         <div class="settings-grid">
-          <!-- Limiti prenotazioni -->
-          <div class="settings-card">
-            <h3 class="settings-card-title">Limiti Prenotazioni</h3>
-            <div class="settings-row">
-              <label>Max prenotazioni mattina</label>
-              <input type="number" id="setMaxMattina" min="1" max="20" value="3" />
-            </div>
-            <div class="settings-row">
-              <label>Max prenotazioni pomeriggio</label>
-              <input type="number" id="setMaxPomeriggio" min="1" max="20" value="3" />
-            </div>
-            <div class="settings-row">
-              <label>Slot urgenze mattina</label>
-              <input type="number" id="setUrgenzeMattina" min="0" max="10" value="1" />
-            </div>
-            <div class="settings-row">
-              <label>Slot urgenze pomeriggio</label>
-              <input type="number" id="setUrgenzePomeriggio" min="0" max="10" value="1" />
-            </div>
-          </div>
-
           <!-- Orari -->
           <div class="settings-card">
             <h3 class="settings-card-title">Orari di Apertura</h3>
@@ -1940,10 +1919,7 @@
     function renderSettings() {
       if (!state.settings) return;
       var s = state.settings;
-      $('setMaxMattina').value = s.max_mattina;
-      $('setMaxPomeriggio').value = s.max_pomeriggio;
-      $('setUrgenzeMattina').value = s.slot_urgenze_mattina;
-      $('setUrgenzePomeriggio').value = s.slot_urgenze_pomeriggio;
+
       $('setMattinaInizio').value = s.orario_mattina_inizio;
       $('setMattinaFine').value = s.orario_mattina_fine;
       $('setPomeriggioInizio').value = s.orario_pomeriggio_inizio;
@@ -1971,10 +1947,6 @@
 
     $('btnSaveSettings').addEventListener('click', function() {
       var updates = {
-        max_mattina: parseInt($('setMaxMattina').value),
-        max_pomeriggio: parseInt($('setMaxPomeriggio').value),
-        slot_urgenze_mattina: parseInt($('setUrgenzeMattina').value),
-        slot_urgenze_pomeriggio: parseInt($('setUrgenzePomeriggio').value),
         orario_mattina_inizio: $('setMattinaInizio').value,
         orario_mattina_fine: $('setMattinaFine').value,
         orario_pomeriggio_inizio: $('setPomeriggioInizio').value,
