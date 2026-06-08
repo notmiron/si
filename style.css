@@ -1812,10 +1812,10 @@ section::before {
   box-shadow: 0 8px 24px rgba(225, 48, 108, 0.3);
 }
 
-.social-links a.social-facebook:hover {
+.social-links a.social-tiktok:hover {
   color: #fff;
-  background: #1877F2;
-  box-shadow: 0 8px 24px rgba(24, 119, 242, 0.3);
+  background: #000;
+  box-shadow: 0 8px 24px rgba(105, 201, 208, 0.3);
 }
 
 .social-links a.social-web:hover {
