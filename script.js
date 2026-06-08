@@ -1385,58 +1385,56 @@
       btnSubmit.disabled = true;
       btnSubmit.textContent = 'Invio in corso...';
 
-      sb.functions.invoke('create-booking', {
-        body: {
-          servizio_id: selectedService.id,
-          nome: nome,
-          email: email,
-          telefono: telefono || null,
-          auto: auto,
-          note: note || null,
-          data: selectedDate,
-          fascia_oraria: selectedFascia,
-          ora: selectedOra + ':00',
-          // Anti-bot fields
-          cf_turnstile_token: turnstileToken || '',
-          _hp_website: (honeypot && honeypot.value) || '',
-          _form_loaded_at: String(formLoadedAt),
-          // For email notification
-          service_name: selectedService.nome,
-          business_name: CONFIG.BUSINESS_NAME,
-          business_phone: CONFIG.BUSINESS_PHONE,
-          business_address: CONFIG.BUSINESS_ADDRESS
-        }
+      sb.from('prenotazioni').insert({
+        servizio_id: selectedService.id,
+        nome: nome,
+        email: email,
+        telefono: telefono || null,
+        auto: auto,
+        note: note || null,
+        data: selectedDate,
+        fascia_oraria: selectedFascia,
+        ora: selectedOra + ':00',
+        stato: 'in_attesa'
       }).then(function(res) {
         if (res.error) throw res.error;
-        var data = res.data;
-        if (data && data.error) throw new Error(data.error);
+
+        // Notify owner via email (fire-and-forget)
+        sb.functions.invoke('send-email', {
+          body: {
+            to: email,
+            name: nome,
+            type: 'nuova_prenotazione',
+            date: selectedDate,
+            fascia: selectedFascia,
+            service: selectedService.nome,
+            auto: auto,
+            telefono: telefono || '',
+            note_cliente: note || '',
+            business_name: CONFIG.BUSINESS_NAME,
+            business_phone: CONFIG.BUSINESS_PHONE,
+            business_address: CONFIG.BUSINESS_ADDRESS
+          }
+        }).catch(function(emailErr) {
+          console.error('Owner notification error:', emailErr);
+        });
 
         // Show success
         form.style.display = 'none';
         document.querySelector('.booking-steps').style.display = 'none';
         document.getElementById('bookingSuccess').style.display = 'block';
-
-        // Reset Turnstile for next booking
-        if (CONFIG.TURNSTILE_SITE_KEY && window.turnstile) {
-          turnstileToken = '';
-          window.turnstile.reset('#turnstileWidget');
-        }
       }).catch(function(err) {
         console.error('Booking error:', err);
         isSubmitting = false;
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Conferma Prenotazione';
         var msg = (err && err.message) || '';
-        if (msg.indexOf('gia una prenotazione') !== -1 || msg.indexOf('già una prenotazione') !== -1) {
+        if (msg.indexOf('gia una prenotazione') !== -1) {
           alert('Hai gia\' una prenotazione per questa data. Contattaci per modificarla.');
-        } else if (msg.indexOf('Slot non') !== -1 || msg.indexOf('più disponibile') !== -1) {
+        } else if (msg.indexOf('Slot non disponibile') !== -1) {
           alert('Questo slot non e\' piu\' disponibile. Prova un altro orario.');
-        } else if (msg.indexOf('chiusa') !== -1) {
+        } else if (msg.indexOf('Giorno chiuso') !== -1) {
           alert('L\'officina e\' chiusa in questa data. Scegli un altro giorno.');
-        } else if (msg.indexOf('Troppe prenotazioni') !== -1 || msg.indexOf('troppo veloce') !== -1) {
-          alert('Troppe prenotazioni. Riprova tra qualche minuto.');
-        } else if (msg.indexOf('anti-bot') !== -1) {
-          alert(msg);
         } else {
           alert('Si e\' verificato un errore. Riprova o contattaci telefonicamente.');
         }
