@@ -33,13 +33,12 @@ CREATE TABLE servizi (
 
 INSERT INTO servizi (nome, descrizione, durata_minuti, ordine) VALUES
   ('Diagnostica Computerizzata', 'Lettura centraline, sensori, codici errore', 60, 1),
-  ('Tagliando', 'Tagliando completo con ricambi di qualita', 120, 2),
-  ('Freni', 'Sostituzione pastiglie, dischi, controllo impianto frenante', 120, 3),
-  ('Manutenzione Generale', 'Sospensioni, distribuzione, cambio olio e altri interventi', 120, 4),
-  ('Rimappatura Centralina', 'Rimappatura ECU per prestazioni o risparmio', 120, 5),
-  ('Tuning & Elaborazioni', 'Scarichi sportivi, assetti, upgrade prestazionali', 180, 6),
-  ('Elettronica & Meccatronica', 'Centraline, codifiche, sistemi elettronici avanzati', 120, 7),
-  ('Altro', 'Altro tipo di intervento – descrivere nelle note', 60, 8);
+  ('Preventivi', 'Richiedi un preventivo per qualsiasi intervento', 60, 2),
+  ('Assistenza', 'Assistenza tecnica e supporto per il tuo veicolo', 60, 3),
+  ('Rimappatura Centralina', 'Rimappatura ECU per prestazioni o risparmio', 120, 4),
+  ('Tuning & Elaborazioni', 'Scarichi sportivi, assetti, upgrade prestazionali', 180, 5),
+  ('Elettronica & Meccatronica', 'Centraline, codifiche, sistemi elettronici avanzati', 120, 6),
+  ('Altro', 'Altro tipo di intervento – descrivere nelle note', 60, 7);
 
 -- Impostazioni officina (riga singola, id=1)
 CREATE TABLE impostazioni (
