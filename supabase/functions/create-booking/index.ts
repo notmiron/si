@@ -17,8 +17,8 @@ const OWNER_EMAIL = Deno.env.get("OWNER_EMAIL") || "";
 const FROM_EMAIL = "Control Garage <onboarding@resend.dev>";
 
 const ALLOWED_ORIGINS = [
-  "https://controlgarage.eu",
-  "https://www.controlgarage.eu",
+  "https://controlgarageforli.it",
+  "https://www.controlgarageforli.it",
   "https://notmiron.github.io",
 ];
 

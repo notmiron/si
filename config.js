@@ -17,7 +17,7 @@ const CONFIG = {
 
   // Info officina
   BUSINESS_NAME: 'Control Garage',
-  BUSINESS_EMAIL: 'info@controlgarage.eu',
+  BUSINESS_EMAIL: 'info@controlgarageforli.it',
   // OWNER_EMAIL viene usato solo lato server (Supabase Edge Function)
   // Non esporre email personali nel frontend
   BUSINESS_PHONE: '388 922 9893',

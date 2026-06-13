@@ -11,8 +11,8 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") || "";
 const FROM_EMAIL = "Control Garage <onboarding@resend.dev>";
 
 const ALLOWED_ORIGINS = [
-  "https://controlgarage.eu",
-  "https://www.controlgarage.eu",
+  "https://controlgarageforli.it",
+  "https://www.controlgarageforli.it",
   "https://notmiron.github.io",
 ];
 

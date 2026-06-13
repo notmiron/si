@@ -5,4 +5,4 @@ Disallow: /pagamento-successo.html
 Disallow: /pagamento-cancellato.html
 Disallow: /privacy-policy.html
 
-Sitemap: https://controlgarage.eu/sitemap.xml
+Sitemap: https://controlgarageforli.it/sitemap.xml

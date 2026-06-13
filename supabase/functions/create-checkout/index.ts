@@ -12,8 +12,8 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "";
 const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY") || "";
 
 const ALLOWED_ORIGINS = [
-  "https://controlgarage.eu",
-  "https://www.controlgarage.eu",
+  "https://controlgarageforli.it",
+  "https://www.controlgarageforli.it",
   "https://notmiron.github.io",
 ];
 
