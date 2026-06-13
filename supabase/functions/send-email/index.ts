@@ -8,7 +8,6 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") || "";
-const OWNER_EMAIL = Deno.env.get("OWNER_EMAIL") || "";
 const FROM_EMAIL = "Control Garage <onboarding@resend.dev>";
 
 const ALLOWED_ORIGINS = [
@@ -48,44 +47,41 @@ serve(async (req) => {
     const body = await req.json();
     const { to, name, type, date, fascia, service, note, proposta_data, proposta_fascia, business_name, business_phone, business_address, payment_url } = body;
 
-    // nuova_prenotazione can be called without auth (from the public booking form)
-    // All other types require authenticated admin user
-    if (type !== "nuova_prenotazione") {
-      const authHeader = req.headers.get("Authorization");
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return new Response(JSON.stringify({ error: "Missing authorization" }), {
-          status: 401,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        });
-      }
+    // All email types require authenticated admin user
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Missing authorization" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
-      const supabase = createClient(
-        Deno.env.get("SUPABASE_URL") ?? "",
-        Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-        { global: { headers: { Authorization: authHeader } } }
-      );
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      { global: { headers: { Authorization: authHeader } } }
+    );
 
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
-      if (authError || !user) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), {
-          status: 401,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        });
-      }
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
-      // Verify user is admin
-      const { data: adminRow } = await supabase
-        .from("admin_users")
-        .select("user_id")
-        .eq("user_id", user.id)
-        .single();
+    // Verify user is admin
+    const { data: adminRow } = await supabase
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .single();
 
-      if (!adminRow) {
-        return new Response(JSON.stringify({ error: "Forbidden: admin only" }), {
-          status: 403,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        });
-      }
+    if (!adminRow) {
+      return new Response(JSON.stringify({ error: "Forbidden: admin only" }), {
+        status: 403,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     if (!to || !name || !type) {
@@ -162,63 +158,6 @@ serve(async (req) => {
         color: "#3b82f6",
         business_name: safeBusinessName,
         business_address: safeBusinessAddress,
-      });
-    } else if (type === "nuova_prenotazione") {
-      // Notification to owner about new booking
-      const ownerEmail = OWNER_EMAIL;
-      if (!ownerEmail) {
-        return new Response(JSON.stringify({ error: "OWNER_EMAIL not configured" }), {
-          status: 500,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        });
-      }
-
-      const safeAuto = escapeHtml(body.auto || "");
-      const safeKmAuto = escapeHtml(body.km_auto || "");
-      const safeTelefono = escapeHtml(body.telefono || "");
-      const safeNoteCliente = escapeHtml(body.note_cliente || "");
-
-      subject = `Nuova Prenotazione - ${safeBusinessName}`;
-      html = buildEmail({
-        title: "Nuova Prenotazione Ricevuta",
-        greeting: `Nuova prenotazione da ${safeName}`,
-        body: `Un cliente ha appena prenotato un appuntamento. Accedi alla dashboard per accettare o rifiutare.`,
-        details: [
-          { label: "Cliente", value: safeName },
-          { label: "Email", value: escapeHtml(to) },
-          ...(safeTelefono ? [{ label: "Telefono", value: safeTelefono }] : []),
-          { label: "Auto", value: safeAuto || "-" },
-          ...(safeKmAuto ? [{ label: "Km", value: safeKmAuto }] : []),
-          { label: "Servizio", value: safeService },
-          { label: "Data", value: dateFormatted },
-          { label: "Fascia oraria", value: fasciaLabel },
-          ...(safeNoteCliente ? [{ label: "Note", value: safeNoteCliente }] : []),
-        ],
-        footer: `Accedi alla dashboard admin per gestire questa prenotazione.`,
-        color: "#f59e0b",
-        business_name: safeBusinessName,
-        business_address: safeBusinessAddress,
-      });
-
-      // Send to owner instead of client
-      const ownerRes = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: FROM_EMAIL,
-          to: [ownerEmail],
-          subject,
-          html,
-        }),
-      });
-
-      const ownerData = await ownerRes.json();
-      return new Response(JSON.stringify(ownerData), {
-        status: ownerRes.ok ? 200 : 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
       });
     } else if (type === "promemoria") {
       subject = `Promemoria Appuntamento - ${safeBusinessName}`;
