@@ -186,8 +186,8 @@ serve(async (req) => {
       });
     }
 
-    // --- Send owner notification (disabled for now) ---
-    if (false && RESEND_API_KEY && OWNER_EMAIL) {
+    // --- Send owner notification (fire-and-forget) ---
+    if (RESEND_API_KEY && OWNER_EMAIL) {
       const safeName = escapeHtml(nome);
       const safeService = escapeHtml(service_name || "");
       const safeAuto = escapeHtml(auto);

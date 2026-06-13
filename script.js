@@ -1347,41 +1347,29 @@
       btnSubmit.disabled = true;
       btnSubmit.textContent = 'Invio in corso...';
 
-      sb.from('prenotazioni').insert({
-        servizio_id: selectedService.id,
-        nome: nome,
-        email: email,
-        telefono: telefono || null,
-        auto: auto,
-        km_auto: kmAuto || null,
-        note: note || null,
-        data: selectedDate,
-        fascia_oraria: selectedFascia,
-        ora: selectedOra + ':00',
-        stato: 'in_attesa'
+      sb.functions.invoke('create-booking', {
+        body: {
+          servizio_id: selectedService.id,
+          nome: nome,
+          email: email,
+          telefono: telefono || null,
+          auto: auto,
+          km_auto: kmAuto || null,
+          note: note || null,
+          data: selectedDate,
+          fascia_oraria: selectedFascia,
+          ora: selectedOra + ':00',
+          cf_turnstile_token: turnstileToken || '',
+          _hp_website: (honeypot && honeypot.value) || '',
+          _form_loaded_at: formLoadedAt,
+          service_name: selectedService.nome,
+          business_name: CONFIG.BUSINESS_NAME,
+          business_phone: CONFIG.BUSINESS_PHONE,
+          business_address: CONFIG.BUSINESS_ADDRESS
+        }
       }).then(function(res) {
         if (res.error) throw res.error;
-
-        // Notify owner via email (fire-and-forget)
-        sb.functions.invoke('send-email', {
-          body: {
-            to: email,
-            name: nome,
-            type: 'nuova_prenotazione',
-            date: selectedDate,
-            fascia: selectedFascia,
-            service: selectedService.nome,
-            auto: auto,
-            km_auto: kmAuto || '',
-            telefono: telefono || '',
-            note_cliente: note || '',
-            business_name: CONFIG.BUSINESS_NAME,
-            business_phone: CONFIG.BUSINESS_PHONE,
-            business_address: CONFIG.BUSINESS_ADDRESS
-          }
-        }).catch(function(emailErr) {
-          console.error('Owner notification error:', emailErr);
-        });
+        if (res.data && res.data.error) throw new Error(res.data.error);
 
         // Show success
         form.style.display = 'none';
@@ -1399,8 +1387,12 @@
           alert('Questo slot non e\' piu\' disponibile. Prova un altro orario.');
         } else if (msg.indexOf('Giorno chiuso') !== -1) {
           alert('L\'officina e\' chiusa in questa data. Scegli un altro giorno.');
+        } else if (msg.indexOf('troppo veloce') !== -1) {
+          alert('Invio troppo veloce. Riprova tra qualche secondo.');
+        } else if (msg.indexOf('anti-bot') !== -1) {
+          alert('Verifica anti-bot fallita. Ricarica la pagina e riprova.');
         } else {
-          alert('Si e\' verificato un errore. Riprova o contattaci telefonicamente.');
+          alert(msg || 'Si e\' verificato un errore. Riprova o contattaci telefonicamente.');
         }
       });
     });
