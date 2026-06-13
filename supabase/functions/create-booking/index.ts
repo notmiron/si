@@ -140,6 +140,35 @@ serve(async (req) => {
       });
     }
 
+    // --- UUID validation for servizio_id ---
+    const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!UUID_REGEX.test(servizio_id)) {
+      return new Response(JSON.stringify({ error: "Servizio non valido." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    // --- Date validation: not in the past and max 90 days ahead ---
+    const bookingDate = new Date(data + "T00:00:00");
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const maxDate = new Date(today);
+    maxDate.setDate(maxDate.getDate() + 365);
+
+    if (isNaN(bookingDate.getTime()) || bookingDate < today) {
+      return new Response(JSON.stringify({ error: "Data non valida o nel passato." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+    if (bookingDate > maxDate) {
+      return new Response(JSON.stringify({ error: "Puoi prenotare al massimo un anno in anticipo." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     // --- Insert booking via service role (bypasses RLS, triggers still fire) ---
     const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 

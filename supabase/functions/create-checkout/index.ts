@@ -112,7 +112,7 @@ serve(async (req) => {
 
     if (!stripeRes.ok) {
       console.error("Stripe error:", stripeData);
-      return new Response(JSON.stringify({ error: "Stripe error", details: stripeData }), {
+      return new Response(JSON.stringify({ error: "Errore nel pagamento. Riprova." }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       });

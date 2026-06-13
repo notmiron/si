@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /pagamento-successo.html
+Disallow: /pagamento-cancellato.html
+Disallow: /privacy-policy.html
 
 Sitemap: https://controlgarage.eu/sitemap.xml
