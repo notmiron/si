@@ -72,6 +72,20 @@ serve(async (req) => {
           headers: { "Content-Type": "application/json", ...corsHeaders },
         });
       }
+
+      // Verify user is admin
+      const { data: adminRow } = await supabase
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (!adminRow) {
+        return new Response(JSON.stringify({ error: "Forbidden: admin only" }), {
+          status: 403,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
     }
 
     if (!to || !name || !type) {

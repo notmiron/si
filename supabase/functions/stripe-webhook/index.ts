@@ -17,7 +17,7 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "";
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
 
 async function verifyStripeSignature(payload: string, sigHeader: string, secret: string): Promise<boolean> {
-  if (!secret) return true; // Skip verification if no secret (dev mode)
+  if (!secret) return false; // Reject if webhook secret is not configured
 
   const parts = sigHeader.split(",").reduce((acc: Record<string, string>, part) => {
     const [key, val] = part.split("=");
