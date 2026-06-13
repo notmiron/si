@@ -1797,8 +1797,6 @@
     // =====================
     // Actions
     // =====================
-    var DEPOSIT_AMOUNT_CENTS = 12200; // €122.00
-
     function handleAction(id, action) {
       if (action === 'accept') {
         var booking = state.bookings.find(function(b) { return b.id === id; });
@@ -1814,7 +1812,6 @@
             service_name: booking.servizi ? booking.servizi.nome : '',
             date: booking.data,
             fascia: booking.fascia_oraria,
-            amount_cents: DEPOSIT_AMOUNT_CENTS,
           }
         }).then(function(res) {
           if (res.error) throw res.error;

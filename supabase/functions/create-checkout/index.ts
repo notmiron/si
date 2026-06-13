@@ -55,10 +55,14 @@ serve(async (req) => {
       });
     }
 
-    const body = await req.json();
-    const { booking_id, customer_name, customer_email, service_name, date, fascia, amount_cents, success_url, cancel_url } = body;
+    const DEPOSIT_AMOUNT_CENTS = 12200; // €122.00 — hardcoded server-side
+    const SUCCESS_URL = "https://notmiron.github.io/si/pagamento-successo.html?session_id={CHECKOUT_SESSION_ID}";
+    const CANCEL_URL = "https://notmiron.github.io/si/pagamento-cancellato.html";
 
-    if (!booking_id || !customer_email || !amount_cents) {
+    const body = await req.json();
+    const { booking_id, customer_name, customer_email, service_name, date, fascia } = body;
+
+    if (!booking_id || !customer_email) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -79,13 +83,13 @@ serve(async (req) => {
         "mode": "payment",
         "customer_email": customer_email,
         "line_items[0][price_data][currency]": "eur",
-        "line_items[0][price_data][unit_amount]": String(amount_cents),
+        "line_items[0][price_data][unit_amount]": String(DEPOSIT_AMOUNT_CENTS),
         "line_items[0][price_data][product_data][name]": `Acconto - ${service_name || "Prenotazione"}`,
         "line_items[0][price_data][product_data][description]": `${dateFormatted} (${fasciaLabel}) — ${customer_name || ""}`,
         "line_items[0][quantity]": "1",
         "payment_method_types[0]": "card",
-        "success_url": success_url || "https://notmiron.github.io/si/pagamento-successo.html?session_id={CHECKOUT_SESSION_ID}",
-        "cancel_url": cancel_url || "https://notmiron.github.io/si/pagamento-cancellato.html",
+        "success_url": SUCCESS_URL,
+        "cancel_url": CANCEL_URL,
         "metadata[booking_id]": String(booking_id),
       }),
     });
