@@ -1803,12 +1803,38 @@
     // =====================
     // Actions
     // =====================
+    var DEPOSIT_AMOUNT_CENTS = 12200; // €122.00
+
     function handleAction(id, action) {
       if (action === 'accept') {
-        updateBookingStatus(id, 'confermata').then(function() {
-          logSecurityEvent('booking_accepted', { booking_id: id });
-          sendEmail(id, 'confermata');
-          showToast('Prenotazione confermata!', 'success');
+        var booking = state.bookings.find(function(b) { return b.id === id; });
+        if (!booking) return;
+        showToast('Creazione pagamento in corso...', '');
+
+        // Create Stripe Checkout Session first
+        sb.functions.invoke('create-checkout', {
+          body: {
+            booking_id: id,
+            customer_name: booking.nome,
+            customer_email: booking.email,
+            service_name: booking.servizi ? booking.servizi.nome : '',
+            date: booking.data,
+            fascia: booking.fascia_oraria,
+            amount_cents: DEPOSIT_AMOUNT_CENTS,
+          }
+        }).then(function(res) {
+          if (res.error) throw res.error;
+          var checkoutUrl = res.data.checkout_url;
+
+          // Now update status and send email with payment link
+          return updateBookingStatus(id, 'confermata').then(function() {
+            logSecurityEvent('booking_accepted', { booking_id: id, checkout_url: checkoutUrl });
+            sendEmail(id, 'confermata', '', '', '', checkoutUrl);
+            showToast('Prenotazione confermata! Link pagamento inviato.', 'success');
+          });
+        }).catch(function(err) {
+          console.error('Checkout creation error:', err);
+          showToast('Errore nella creazione del pagamento', 'error');
         });
       } else if (action === 'reject') {
         $('rejectBookingId').value = id;
@@ -1885,7 +1911,7 @@
     // =====================
     // Email (calls Edge Function)
     // =====================
-    function sendEmail(bookingId, type, note, propDate, propFascia) {
+    function sendEmail(bookingId, type, note, propDate, propFascia, paymentUrl) {
       var booking = state.bookings.find(function(b) { return b.id === bookingId; });
       if (!booking) return;
 
@@ -1902,7 +1928,8 @@
           proposta_fascia: propFascia || '',
           business_name: CONFIG.BUSINESS_NAME,
           business_phone: CONFIG.BUSINESS_PHONE,
-          business_address: CONFIG.BUSINESS_ADDRESS
+          business_address: CONFIG.BUSINESS_ADDRESS,
+          payment_url: paymentUrl || ''
         }
       }).catch(function(err) {
         console.error('Email error:', err);

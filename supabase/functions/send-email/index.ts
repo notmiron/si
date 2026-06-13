@@ -46,7 +46,7 @@ serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { to, name, type, date, fascia, service, note, proposta_data, proposta_fascia, business_name, business_phone, business_address } = body;
+    const { to, name, type, date, fascia, service, note, proposta_data, proposta_fascia, business_name, business_phone, business_address, payment_url } = body;
 
     // nuova_prenotazione can be called without auth (from the public booking form)
     // All other types require authenticated admin user
@@ -96,20 +96,28 @@ serve(async (req) => {
     let html = "";
 
     if (type === "confermata") {
-      subject = `Prenotazione Confermata - ${safeBusinessName}`;
+      const hasPayment = !!payment_url;
+      subject = hasPayment
+        ? `Conferma Prenotazione - Pagamento Acconto - ${safeBusinessName}`
+        : `Prenotazione Confermata - ${safeBusinessName}`;
       html = buildEmail({
-        title: "Prenotazione Confermata!",
+        title: hasPayment ? "Prenotazione Confermata — Paga l'Acconto" : "Prenotazione Confermata!",
         greeting: `Ciao ${safeName},`,
-        body: `La tua prenotazione è stata <strong>confermata</strong>.`,
+        body: hasPayment
+          ? `La tua prenotazione è stata <strong>confermata</strong>.<br><br>Per completare la prenotazione, è necessario versare l'acconto tramite il pulsante qui sotto.`
+          : `La tua prenotazione è stata <strong>confermata</strong>.`,
         details: [
           { label: "Servizio", value: safeService },
           { label: "Data", value: dateFormatted },
           { label: "Fascia oraria", value: fasciaLabel },
         ],
-        footer: `Ti aspettiamo! Se hai bisogno di modificare o cancellare, contattaci al ${safeBusinessPhone}.`,
+        footer: hasPayment
+          ? `Il link di pagamento scade tra 24 ore. Per assistenza contattaci al ${safeBusinessPhone}.`
+          : `Ti aspettiamo! Se hai bisogno di modificare o cancellare, contattaci al ${safeBusinessPhone}.`,
         color: "#22c55e",
         business_name: safeBusinessName,
         business_address: safeBusinessAddress,
+        payment_url: payment_url || "",
       });
     } else if (type === "rifiutata") {
       subject = `Aggiornamento Prenotazione - ${safeBusinessName}`;
@@ -259,6 +267,7 @@ function buildEmail(opts: {
   color: string;
   business_name: string;
   business_address: string;
+  payment_url?: string;
 }): string {
   const detailsHtml = opts.details.length > 0
     ? `<table style="width:100%;border-collapse:collapse;margin:24px 0">
@@ -269,6 +278,13 @@ function buildEmail(opts: {
           </tr>
         `).join("")}
        </table>`
+    : "";
+
+  const paymentHtml = opts.payment_url
+    ? `<div style="text-align:center;margin:28px 0 16px">
+        <a href="${opts.payment_url}" style="display:inline-block;padding:16px 48px;background:#22c55e;color:#fff;font-size:16px;font-weight:700;text-decoration:none;border-radius:50px;letter-spacing:0.5px">PAGA ACCONTO</a>
+       </div>
+       <p style="text-align:center;color:#666;font-size:12px;margin:0">Pagamento sicuro tramite Stripe. Accettiamo carte, Apple Pay e Google Pay.</p>`
     : "";
 
   return `
@@ -295,6 +311,7 @@ function buildEmail(opts: {
       <p style="color:#f0f0f0;font-size:16px;margin:0 0 16px">${opts.greeting}</p>
       <p style="color:#999;font-size:14px;line-height:1.7;margin:0">${opts.body}</p>
       ${detailsHtml}
+      ${paymentHtml}
       <p style="color:#666;font-size:13px;line-height:1.6;margin:16px 0 0">${opts.footer}</p>
     </div>
 

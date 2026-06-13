@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento Completato – Control Garage</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container { max-width: 480px; }
+    .icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .icon svg { width: 40px; height: 40px; }
+    .title {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .text {
+      color: #999;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 2rem;
+      background: #fff;
+      color: #0a0a0a;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .link:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,0.15); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h1 class="title">Pagamento Completato</h1>
+    <p class="text">
+      Grazie! Il tuo acconto è stato ricevuto con successo.<br>
+      Riceverai una conferma via email. Ti aspettiamo in officina!
+    </p>
+    <a href="/" class="link">Torna al sito</a>
+  </div>
+</body>
+</html>
