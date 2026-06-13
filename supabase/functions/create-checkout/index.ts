@@ -84,11 +84,9 @@ serve(async (req) => {
         "line_items[0][price_data][product_data][description]": `${dateFormatted} (${fasciaLabel}) — ${customer_name || ""}`,
         "line_items[0][quantity]": "1",
         "payment_method_types[0]": "card",
-        "payment_method_types[1]": "link",
-        "success_url": success_url || "https://notmiron.github.io/pagamento-successo.html?session_id={CHECKOUT_SESSION_ID}",
-        "cancel_url": cancel_url || "https://notmiron.github.io/pagamento-cancellato.html",
+        "success_url": success_url || "https://notmiron.github.io/si/pagamento-successo.html?session_id={CHECKOUT_SESSION_ID}",
+        "cancel_url": cancel_url || "https://notmiron.github.io/si/pagamento-cancellato.html",
         "metadata[booking_id]": String(booking_id),
-        "expires_after": "86400",
       }),
     });
 
