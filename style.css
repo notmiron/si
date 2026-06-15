@@ -1098,59 +1098,134 @@ section::before {
 }
 
 /* ============================================
-   Lavori Section
+   Lavori Section — Editorial Photographic Spread
    ============================================ */
-.lavori-section {
-  background: var(--bg-elevated);
+.garage-section {
+  background: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
 }
 
-.lavori-grid {
+.garage-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.garage-section::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  right: -160px;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(circle, rgba(255, 184, 0, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.garage-subtitle {
+  color: var(--text-tertiary);
+  font-size: 1rem;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+}
+
+.garage-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
+  position: relative;
 }
 
-.lavori-item {
-  border-radius: var(--radius-lg);
+.garage-item {
+  position: relative;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  transition: transform var(--transition-base), border-color var(--transition-base);
+  cursor: pointer;
+  margin: 0;
+  background: var(--bg-card);
+  aspect-ratio: 4 / 3;
+  isolation: isolate;
 }
 
-.lavori-item:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-default);
-}
-
-.lavori-item img {
+.garage-item img {
   width: 100%;
-  height: 280px;
+  height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform var(--transition-slow);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  filter: brightness(0.88) saturate(1.06) contrast(1.03);
 }
 
-.lavori-item:hover img {
+/* Vignette + bottom gradient for depth */
+.garage-item__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.40) 100%),
+    linear-gradient(180deg, transparent 62%, rgba(0,0,0,0.50) 100%);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.6s ease;
+}
+
+/* Frame ring */
+.garage-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Hover */
+.garage-item:hover img {
   transform: scale(1.05);
+  filter: brightness(1.05) saturate(1.14) contrast(1.05);
 }
 
+.garage-item:hover .garage-item__overlay { opacity: 0.55; }
+
+.garage-item:hover::after {
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 28px 60px -22px rgba(0,0,0,0.7);
+}
+
+/* Focus pull — siblings dim when one is hovered */
+.garage-grid:has(.garage-item:hover) .garage-item:not(:hover) img {
+  filter: brightness(0.42) saturate(0.7) contrast(0.96);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .lavori-grid {
+  .garage-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 8px;
   }
-  .lavori-item img {
-    height: 200px;
+  .garage-grid:has(.garage-item:hover) .garage-item:not(:hover) img {
+    filter: brightness(0.88) saturate(1.06) contrast(1.03);
   }
 }
 
 @media (max-width: 480px) {
-  .lavori-grid {
+  .garage-grid {
     grid-template-columns: 1fr;
   }
-  .lavori-item img {
-    height: 240px;
-  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garage-item img { transition: none; }
+  .garage-item:hover img { transform: none; }
 }
 
 /* ============================================
