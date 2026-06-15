@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://swyoegecrtctnevuqarm.supabase.co https://cdn.jsdelivr.net; frame-src https://www.google.com https://challenges.cloudflare.com;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://swyoegecrtctnevuqarm.supabase.co https://cdn.jsdelivr.net https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net; frame-src https://www.google.com https://challenges.cloudflare.com;" />
   <title>Control Garage – Officina Meccatronica a Forlì</title>
   <meta name="description" content="Control Garage – Officina Meccatronica a Forlì. Nata dalla pura passione per le auto, i motori e le elaborazioni. Diagnostica, riparazioni e tuning. Via Ettore Benini 3." />
 
@@ -979,7 +979,7 @@
         </svg>
         <h3 class="cookie-banner-title">Questo sito utilizza i cookie</h3>
       </div>
-      <p class="cookie-banner-text">Utilizziamo cookie di terze parti (Google Fonts e Google Maps) per migliorare la tua esperienza. Puoi scegliere quali accettare.</p>
+      <p class="cookie-banner-text">Utilizziamo cookie di terze parti (Google Fonts, Google Maps e Google Analytics) per migliorare la tua esperienza. Puoi scegliere quali accettare.</p>
 
       <div class="cookie-banner-actions">
         <button type="button" class="cookie-btn cookie-btn--accept" id="cookieAcceptAll">Accetta tutto</button>
@@ -1015,6 +1015,16 @@
           </div>
           <label class="cookie-toggle">
             <input type="checkbox" id="cookieToggleMaps" />
+            <span class="cookie-toggle-slider"></span>
+          </label>
+        </div>
+        <div class="cookie-category">
+          <div class="cookie-category-info">
+            <strong>Analytics</strong>
+            <span class="cookie-category-desc">Google Analytics per statistiche anonime di visita</span>
+          </div>
+          <label class="cookie-toggle">
+            <input type="checkbox" id="cookieToggleAnalytics" />
             <span class="cookie-toggle-slider"></span>
           </label>
         </div>
