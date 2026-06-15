@@ -1515,6 +1515,23 @@
     }
   }
 
+  var GA_MEASUREMENT_ID = 'G-YLNSV8KYR0';
+
+  function loadGoogleAnalytics() {
+    if (window.gtag || document.getElementById('gaScript')) return;
+
+    var script = document.createElement('script');
+    script.id = 'gaScript';
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+  }
+
   function loadGoogleMaps() {
     var container = document.getElementById('mapEmbed');
     var placeholder = document.getElementById('mapPlaceholder');
@@ -1544,8 +1561,10 @@
     var consent = getCookieConsent();
     var fontsToggle = document.getElementById('cookieToggleFonts');
     var mapsToggle = document.getElementById('cookieToggleMaps');
+    var analyticsToggle = document.getElementById('cookieToggleAnalytics');
     if (fontsToggle && consent) fontsToggle.checked = consent.functional;
     if (mapsToggle && consent) mapsToggle.checked = consent.maps;
+    if (analyticsToggle && consent) analyticsToggle.checked = consent.analytics;
 
     banner.setAttribute('aria-hidden', 'false');
     // Force reflow before adding class for transition
@@ -1573,6 +1592,10 @@
     if (prefs.maps) {
       loadGoogleMaps();
     }
+
+    if (prefs.analytics) {
+      loadGoogleAnalytics();
+    }
   }
 
   function initCookieConsent() {
@@ -1586,6 +1609,7 @@
       if (consent.functional) loadGoogleFonts();
       else document.body.classList.add('fonts-blocked');
       if (consent.maps) loadGoogleMaps();
+      if (consent.analytics) loadGoogleAnalytics();
       return;
     }
 
@@ -1599,12 +1623,12 @@
 
     // Accept all
     document.getElementById('cookieAcceptAll').addEventListener('click', function () {
-      applyCookieConsent({ necessary: true, functional: true, maps: true });
+      applyCookieConsent({ necessary: true, functional: true, maps: true, analytics: true });
     });
 
     // Reject all
     document.getElementById('cookieRejectAll').addEventListener('click', function () {
-      applyCookieConsent({ necessary: true, functional: false, maps: false });
+      applyCookieConsent({ necessary: true, functional: false, maps: false, analytics: false });
     });
 
     // Customize toggle
@@ -1617,7 +1641,8 @@
     document.getElementById('cookieSavePrefs').addEventListener('click', function () {
       var fontsChecked = document.getElementById('cookieToggleFonts').checked;
       var mapsChecked = document.getElementById('cookieToggleMaps').checked;
-      applyCookieConsent({ necessary: true, functional: fontsChecked, maps: mapsChecked });
+      var analyticsChecked = document.getElementById('cookieToggleAnalytics').checked;
+      applyCookieConsent({ necessary: true, functional: fontsChecked, maps: mapsChecked, analytics: analyticsChecked });
     });
   }
 
