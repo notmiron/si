@@ -39,8 +39,6 @@
   <!-- Google Fonts – caricati via JS dopo consenso cookie -->
 
   <!-- Preconnect to external origins -->
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://swyoegecrtctnevuqarm.supabase.co" />
@@ -49,7 +47,8 @@
   <link rel="preload" as="image" href="./hero-bg.webp" type="image/webp" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="./style.min.css" />
+  <link rel="preload" href="./style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./style.min.css"></noscript>
 
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -143,6 +142,7 @@
     <ul class="nav-links" id="navLinks" role="list">
       <li><a href="#about">Chi Siamo</a></li>
       <li><a href="#services">Servizi</a></li>
+      <li><a href="#listino">Listino</a></li>
       <li><a href="#info">Dove Siamo</a></li>
       <li><a href="#prenota" class="nav-cta">Prenota</a></li>
     </ul>
@@ -298,6 +298,121 @@
         </article>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== LISTINO PREZZI ===================== -->
+  <section class="pricing-section" id="listino" aria-labelledby="listino-heading">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <p class="section-label">Trasparenza</p>
+        <h2 class="section-heading" id="listino-heading"><span class="heading-bold">LISTINO</span> <span class="heading-script">Indicativo</span></h2>
+        <p class="section-intro text-body">Prezzi di riferimento per orientarti. Ogni intervento viene preventivato dopo la diagnosi, senza sorprese in fattura.</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <article class="pricing-card reveal-card" aria-label="Diagnosi Computerizzata">
+          <div class="pricing-card-inner">
+            <div class="pricing-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M7 10l3 3 7-7"/>
+              </svg>
+            </div>
+            <h3 class="pricing-card-title">Diagnosi Computerizzata</h3>
+            <p class="pricing-card-desc text-body">Lettura centraline, codici errore, check sensori e impianto elettronico.</p>
+            <div class="pricing-card-price">
+              <!-- PREZZO: sostituire "Su preventivo" con valore reale, es. "Da €XX" -->
+              <span class="pricing-amount">Su preventivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pricing-card reveal-card" aria-label="Tagliando Completo">
+          <div class="pricing-card-inner">
+            <div class="pricing-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </div>
+            <h3 class="pricing-card-title">Tagliando Completo</h3>
+            <p class="pricing-card-desc text-body">Cambio olio motore, filtro olio, filtro aria, filtro abitacolo e check generale.</p>
+            <div class="pricing-card-price">
+              <!-- PREZZO: sostituire "Su preventivo" con valore reale, es. "Da €XX" -->
+              <span class="pricing-amount">Su preventivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pricing-card reveal-card" aria-label="Pastiglie e Dischi Freni">
+          <div class="pricing-card-inner">
+            <div class="pricing-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+              </svg>
+            </div>
+            <h3 class="pricing-card-title">Freni</h3>
+            <p class="pricing-card-desc text-body">Sostituzione pastiglie e/o dischi anteriori o posteriori, ricambi di qualità.</p>
+            <div class="pricing-card-price">
+              <!-- PREZZO: sostituire "Su preventivo" con valore reale, es. "Da €XX" -->
+              <span class="pricing-amount">Su preventivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pricing-card reveal-card" aria-label="Cambio e Montaggio Gomme">
+          <div class="pricing-card-inner">
+            <div class="pricing-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/>
+              </svg>
+            </div>
+            <h3 class="pricing-card-title">Montaggio Gomme</h3>
+            <p class="pricing-card-desc text-body">Montaggio, smontaggio ed equilibratura. Stoccaggio gomme stagionali disponibile.</p>
+            <div class="pricing-card-price">
+              <!-- PREZZO: sostituire "Su preventivo" con valore reale, es. "Da €XX" -->
+              <span class="pricing-amount">Su preventivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pricing-card reveal-card" aria-label="Rimappatura Centralina">
+          <div class="pricing-card-inner">
+            <div class="pricing-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <h3 class="pricing-card-title">Rimappatura Centralina</h3>
+            <p class="pricing-card-desc text-body">Stage 1, Stage 2 e mappature custom su banco prova. Più potenza, più gusto.</p>
+            <div class="pricing-card-price">
+              <!-- PREZZO: sostituire "Su preventivo" con valore reale, es. "Da €XX" -->
+              <span class="pricing-amount">Su preventivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pricing-card reveal-card" aria-label="Cinghia di Distribuzione">
+          <div class="pricing-card-inner">
+            <div class="pricing-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/><path d="M8 9h8M8 15h8"/>
+              </svg>
+            </div>
+            <h3 class="pricing-card-title">Cinghia Distribuzione</h3>
+            <p class="pricing-card-desc text-body">Sostituzione cinghia, tendicinghia e pompa acqua. Prevenzione che salva il motore.</p>
+            <div class="pricing-card-price">
+              <!-- PREZZO: sostituire "Su preventivo" con valore reale, es. "Da €XX" -->
+              <span class="pricing-amount">Su preventivo</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="pricing-disclaimer reveal-up">
+        I prezzi indicati sono di riferimento e possono variare in base al modello dell'auto e ai ricambi necessari. Per un preventivo preciso, <a href="#prenota">prenota un appuntamento</a>.
+      </p>
     </div>
   </section>
 
@@ -802,7 +917,7 @@
 
         <!-- Column 2: Quick links -->
         <div class="footer-col">
-          <h4 class="footer-col-heading">Link Rapidi</h4>
+          <h3 class="footer-col-heading">Link Rapidi</h3>
           <ul class="footer-links" role="list">
             <li><a href="#about">Chi Siamo</a></li>
             <li><a href="#services">Servizi</a></li>
@@ -813,7 +928,7 @@
 
         <!-- Column 3: Contact + socials -->
         <div class="footer-col">
-          <h4 class="footer-col-heading">Contatti</h4>
+          <h3 class="footer-col-heading">Contatti</h3>
           <div class="footer-contact">
             <p>Via Ettore Benini, 3<br />47121 Forlì FC, Italia</p>
             <p><a href="tel:+393889229893">388 922 9893</a></p>

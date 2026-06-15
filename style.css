@@ -59,7 +59,7 @@ ul, ol {
 
   --text-primary:   #f0f0f0;
   --text-secondary: #999999;
-  --text-tertiary:  #666666;
+  --text-tertiary:  #a0a0a0;
 
   --accent:        #ffffff;
   --accent-dim:    rgba(255, 255, 255, 0.12);
@@ -764,6 +764,118 @@ section::before {
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   font-family: 'Inter', sans-serif;
+}
+
+/* ============================================
+   Pricing Section (Listino Indicativo)
+   ============================================ */
+.pricing-section {
+  background: var(--bg-base);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-slow), border-color var(--transition-base), box-shadow var(--transition-slow);
+  opacity: 0;
+  transform: translateY(40px);
+  cursor: default;
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-default);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.pricing-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pricing-card-inner {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pricing-icon {
+  margin-bottom: 20px;
+  display: block;
+  line-height: 1;
+  color: var(--text-secondary);
+  transition: color var(--transition-base);
+}
+
+.pricing-card:hover .pricing-icon {
+  color: #fff;
+}
+
+.pricing-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.pricing-card-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-family: 'Inter', sans-serif;
+  flex-grow: 1;
+}
+
+.pricing-card-price {
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.pricing-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.pricing-disclaimer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pricing-disclaimer a {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-decoration-color: var(--border-default);
+  text-underline-offset: 3px;
+  transition: color var(--transition-base);
+}
+
+.pricing-disclaimer a:hover {
+  color: var(--text-primary);
 }
 
 /* ============================================
@@ -2290,7 +2402,6 @@ section::before {
 .footer-copy {
   font-size: 0.7rem;
   color: var(--text-tertiary);
-  opacity: 0.6;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.04em;
 }

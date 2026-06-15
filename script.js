@@ -32,7 +32,7 @@
       '.hero-title', '.hero-subtitle', '.hero-accent-line',
       '#heroContent', '.garage-door',
       '.reveal-up',
-      '.menu-card', '.info-block',
+      '.menu-card', '.pricing-card', '.info-block',
       '.stat-number', '.nav-cta'
     ];
     selectors.forEach(function (sel) {
@@ -49,7 +49,7 @@
      ============================================ */
   function initIntersectionFallback() {
     if (typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal-up, .menu-card, .info-block').forEach(function (el) {
+      document.querySelectorAll('.reveal-up, .menu-card, .pricing-card, .info-block').forEach(function (el) {
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
@@ -67,7 +67,7 @@
       });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.reveal-up, .menu-card, .info-block').forEach(function (el) {
+    document.querySelectorAll('.reveal-up, .menu-card, .pricing-card, .info-block').forEach(function (el) {
       el.style.opacity = '0';
       el.style.transform = 'translateY(24px)';
       observer.observe(el);
@@ -285,6 +285,23 @@
         stagger: 0.08,
         scrollTrigger: {
           trigger: '.menu-grid',
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }
+
+    // Pricing cards with stagger
+    var pricingCards = gsap.utils.toArray('.pricing-card');
+    if (pricingCards.length) {
+      gsap.to(pricingCards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: 'power3.out',
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: '.pricing-grid',
           start: 'top 80%',
           once: true,
         },

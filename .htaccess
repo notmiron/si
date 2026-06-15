@@ -1,0 +1,64 @@
+# === SECURITY HEADERS ===
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(self \"https://js.stripe.com\")"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
+
+# === FORCE HTTPS ===
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# === COMPRESSIONE ===
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# === CACHE STATICI ===
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2|webp|avif|jpg|jpeg|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# === MIME TYPES MODERNI ===
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+</IfModule>
+
+# === BLOCCO ACCESSO A FILE SENSIBILI ===
+<FilesMatch "\.(sql|env|log|md|yml|yaml|json)$">
+  Require all denied
+</FilesMatch>
+<Files "config.js">
+  # config.js e' pubblico per il browser, non bloccare
+  Require all granted
+</Files>
+
+# === ERRORE 404 PERSONALIZZATO ===
+ErrorDocument 404 /404.html
