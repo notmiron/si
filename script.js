@@ -199,10 +199,13 @@
     var links = document.getElementById('navLinks');
     if (!toggle || !links) return;
 
+    var navbar = document.getElementById('navbar');
+
     toggle.addEventListener('click', function () {
       var isOpen = links.classList.contains('open');
       links.classList.toggle('open');
       toggle.classList.toggle('active');
+      if (navbar) navbar.classList.toggle('menu-open');
       toggle.setAttribute('aria-expanded', String(!isOpen));
     });
 
@@ -210,6 +213,7 @@
       link.addEventListener('click', function () {
         links.classList.remove('open');
         toggle.classList.remove('active');
+        if (navbar) navbar.classList.remove('menu-open');
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
