@@ -4,5 +4,6 @@ Disallow: /admin.html
 Disallow: /pagamento-successo.html
 Disallow: /pagamento-cancellato.html
 Disallow: /privacy-policy.html
+Disallow: /cookie-policy.html
 
 Sitemap: https://controlgarageforli.it/sitemap.xml
