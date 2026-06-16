@@ -1653,6 +1653,36 @@
     }
   };
 
+  function initOutboundTracking() {
+    document.addEventListener('click', function (e) {
+      var link = e.target && e.target.closest && e.target.closest('a[href]');
+      if (!link) return;
+      var href = link.getAttribute('href') || '';
+      var eventName = null;
+      var params = { link_url: href };
+
+      if (href.indexOf('tel:') === 0) {
+        eventName = 'phone_click';
+      } else if (href.indexOf('wa.me/') !== -1 || href.indexOf('api.whatsapp.com') !== -1) {
+        eventName = 'whatsapp_click';
+      } else if (href.indexOf('maps.app.goo.gl') !== -1 || href.indexOf('google.com/maps') !== -1) {
+        eventName = 'maps_click';
+      } else if (href.indexOf('instagram.com') !== -1) {
+        eventName = 'social_click';
+        params.network = 'instagram';
+      } else if (href.indexOf('tiktok.com') !== -1) {
+        eventName = 'social_click';
+        params.network = 'tiktok';
+      } else if (href.indexOf('controlgarage.eu') !== -1) {
+        eventName = 'shop_click';
+      }
+
+      if (eventName && typeof window.gtag === 'function') {
+        window.gtag('event', eventName, params);
+      }
+    }, true);
+  }
+
   /* ============================================
      Bootstrap
      ============================================ */
@@ -1665,6 +1695,7 @@
     initMagneticButtons();
     initScrollProgress();
     initBookingForm();
+    initOutboundTracking();
     initAnimations();
   });
 
