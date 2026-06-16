@@ -231,6 +231,7 @@ body {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border-bottom: none;
+  transition: none;
 }
 
 .nav-logo {
