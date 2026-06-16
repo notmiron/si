@@ -450,11 +450,18 @@ body {
   background: rgba(255, 255, 255, 0.25);
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(2.5rem, 6vh, 5rem);
+  justify-content: center;
+}
+
 .hero-booking-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: clamp(2.5rem, 6vh, 5rem);
   padding: 1rem 2.4rem;
   background: #fff;
   color: #111;
@@ -465,7 +472,8 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 100px;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
@@ -473,6 +481,21 @@ body {
   background: #e0e0e0;
   transform: translateY(-2px);
   box-shadow: 0 6px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hero-booking-btn--secondary {
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.hero-booking-btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.3);
 }
 
 .hero-booking-btn:active {
